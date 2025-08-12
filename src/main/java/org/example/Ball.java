@@ -10,7 +10,7 @@ public class Ball implements isAlive {
     private Boolean isAlive = true;
 
 
-    public Ball(int size, int locationX, int locationY) {
+    public Ball( int locationX, int locationY) {
         this.size = Main.BALL_SIZE;
         this.locationX = locationX;
         this.locationY = locationY;

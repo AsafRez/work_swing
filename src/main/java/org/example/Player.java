@@ -36,7 +36,7 @@ public class Player implements isAlive {
 
     public void paint (Graphics graphics){
         graphics.setColor(Color.black);
-        graphics.fillRect(Main.WINDOW_HEIGHT/2,Main.WINDOW_HEIGHT-5,Main.PLAYER_WIDTH,Main.PLAYER_HEIGHT);
+        graphics.fillRect(locationX,locationY,Main.PLAYER_WIDTH,Main.PLAYER_HEIGHT);
     }
 }
 

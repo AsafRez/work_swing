@@ -1,5 +1,7 @@
 package org.example;
 
+import javax.swing.*;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
@@ -15,8 +17,17 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Player player = new Player(1, 0, 0);
-        Ball ball = new Ball(2,5,5);
+        JFrame window = new JFrame();
+        window.setVisible(true);
+        window.setSize(WINDOW_WITH,WINDOW_HEIGHT);
+        window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        window.setLocationRelativeTo(null);
+        window.setResizable(false);
+        window.setLayout(null);
+
+
+        MainGameView maingameview = new MainGameView();
+        window.add(maingameview);
 
     }
 }
