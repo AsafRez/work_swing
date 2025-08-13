@@ -1,6 +1,7 @@
 package org.example;
 
 
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,13 +12,16 @@ public class StartMenu extends JPanel {
         this.setBackground(Color.blue);
         this.setLayout(null);
         this.setVisible(true);
+        SoundManager manger = new SoundManager("Main_page_music.wav");
         JButton start_button=this.create_Button((int)((width/2)),height/2+50,100,100,"Start");
         JButton exit_button=this.create_Button((int)((width/4)),height/2+50,100,100,"Exit");
         exit_button.addActionListener((event)->{
             System.exit(0);
+
         });
         start_button.addActionListener((event)->{
           Main.start_Game();
+          manger.stop_music();
 
         });
         Font font = new Font ("Ariel" , Font.ITALIC, 24);
@@ -26,7 +30,7 @@ public class StartMenu extends JPanel {
         JLabel tennis_image=create_image(0,0,50,50,"Tennis_Ball");
         JLabel basketball_image=create_image(51,0,50,50,"Football");
         JLabel football_image=create_image(105,0,50,50,"Basketball");
-        SoundManager.play_music("Main_page_music.wav");
+
 
 
     }

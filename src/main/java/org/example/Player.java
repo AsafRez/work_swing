@@ -3,8 +3,8 @@ package org.example;
 import java.awt.*;
 
 public class Player implements isAlive {
-    private static final int PLAYER_WIDTH = 20;
-    private static final int PLAYER_HEIGHT= 3;
+    private static final int PLAYER_WIDTH = 350;
+    private static final int PLAYER_HEIGHT= 50;
     private int size;
     private int locationX;
     private int locationY;
@@ -30,13 +30,18 @@ public class Player implements isAlive {
     public void setLocationY(int locationY) {
         this.locationY = locationY;
     }
+    public void move_Left(){
+        this.locationX -= 5;
+    }
+    public void move_Right(){
+        this.locationX += 5;
 
+    }
     public Boolean isAlive(){
         return isAlive;
     }
-
     public void paint (Graphics graphics){
-        graphics.setColor(Color.black);
+        graphics.setColor(Color.WHITE);
         graphics.fillRect(locationX,locationY,PLAYER_WIDTH,PLAYER_HEIGHT);
     }
 }
