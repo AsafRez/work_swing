@@ -3,8 +3,11 @@ package org.example;
 import java.awt.*;
 
 public class Enemy  implements isAlive {
-    private int width = Main.ENEMY_WIDTH;
-    private int height = Main.ENEMY_HEIGHT;
+    private static final int ENEMY_WIDTH = 1;
+    private static final int ENEMY_HEIGHT= 1;
+
+    private int width = ENEMY_WIDTH;
+    private int height = ENEMY_HEIGHT;
     private int locationX;
     private int locationY;
     private Boolean isAlive = true;
@@ -43,6 +46,6 @@ public class Enemy  implements isAlive {
     }
     public void paint (Graphics graphics){
         graphics.setColor(Color.blue);
-        graphics.fillRect(locationX,locationY,Main.PLAYER_WIDTH,Main.PLAYER_HEIGHT);
+        graphics.fillRect(locationX,locationY,ENEMY_WIDTH,ENEMY_HEIGHT);
     }
 }

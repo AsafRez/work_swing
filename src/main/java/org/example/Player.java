@@ -3,7 +3,8 @@ package org.example;
 import java.awt.*;
 
 public class Player implements isAlive {
-
+    private static final int PLAYER_WIDTH = 20;
+    private static final int PLAYER_HEIGHT= 3;
     private int size;
     private int locationX;
     private int locationY;
@@ -36,7 +37,7 @@ public class Player implements isAlive {
 
     public void paint (Graphics graphics){
         graphics.setColor(Color.black);
-        graphics.fillRect(locationX,locationY,Main.PLAYER_WIDTH,Main.PLAYER_HEIGHT);
+        graphics.fillRect(locationX,locationY,PLAYER_WIDTH,PLAYER_HEIGHT);
     }
 }
 

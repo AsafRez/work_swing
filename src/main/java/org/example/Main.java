@@ -8,25 +8,25 @@ public class Main {
 
     public static final int WINDOW_WITH = 1024;
     public static final int WINDOW_HEIGHT = 800;
-    public static final int ENEMY_WIDTH = 1;
-    public static final int ENEMY_HEIGHT= 1;
-    public static final int BALL_SIZE = 2;
-    public static final int PLAYER_WIDTH = 20;
-    public static final int PLAYER_HEIGHT= 3;
+    public static boolean FULL_SCREEN=false;
+    public static JFrame window;
 
-
+    public static void set_Screen(boolean screen){
+        if(screen){
+            window.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        }else {
+            window.setExtendedState(JFrame.NORMAL);
+        }
+    }
     public static void main(String[] args) {
-
-        JFrame window = new JFrame();
+        window = new JFrame();
         window.setVisible(true);
         window.setSize(WINDOW_WITH,WINDOW_HEIGHT);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.setLocationRelativeTo(null);
         window.setResizable(false);
         window.setLayout(null);
-
-
-        MainGameView maingameview = new MainGameView();
+        StartMenu maingameview = new StartMenu(0,0,WINDOW_WITH,WINDOW_HEIGHT);
         window.add(maingameview);
 
     }

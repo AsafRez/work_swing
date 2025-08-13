@@ -10,9 +10,10 @@ public class MainGameView extends JPanel{
     List<Enemy> enemies;
 
 
-public MainGameView (){
+public MainGameView (JFrame mainFrame){
     this.setLayout(null);
-    this.setBounds(0,0,Main.WINDOW_WITH,(int) (Main.WINDOW_HEIGHT * 0.9));
+    this.setBackground(Color.BLACK);
+    this.setBounds(0,0,mainFrame.getWidth(),(mainFrame.getHeight()));
     this.setVisible(true);
     this.player = new Player(Main.WINDOW_HEIGHT/2,Main.WINDOW_HEIGHT-5);
     this.ball = new Ball(Main.WINDOW_HEIGHT/2,Main.WINDOW_HEIGHT/2);
