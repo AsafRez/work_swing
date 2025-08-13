@@ -24,7 +24,7 @@ public class StartMenu extends JPanel {
           manger.stop_music();
 
         });
-        Font font = new Font ("Ariel" , Font.ITALIC, 24);
+        Font font = new Font ("Ariel" , Font.BOLD, 35);
         JLabel start_label=create_Label(width/2,0,650,45,"Blocks Bomber",font);
         start_label.setForeground(Color.WHITE);
         JLabel tennis_image=create_image(0,0,50,50,"Tennis_Ball");

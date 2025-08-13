@@ -9,19 +9,18 @@ public class MainGameView extends JPanel{
     Ball ball;
     List<Enemy> enemies;
     Dimension screenSize;
-
+    public static int WIDTH;
+    public static int HEIGHT;
+    public  boolean pause=false;
 
 public MainGameView (int x, int y,int width,int height){
-
+    this.WIDTH = width;
+    this.HEIGHT = height;
     this.setLayout(null);
     this.setBackground(Color.BLACK);
     this.setBounds(x,y,width,(height));
     this.setVisible(true);
     this.player = new Player(width/2,height-200);
-    this.ball = new Ball(Main.WINDOW_HEIGHT/2,Main.WINDOW_HEIGHT/2);
-    JLabel title = new JLabel("Click Counter");
-    Font font = new Font ("Ariel" , Font.ITALIC, 24);
-    title.setBounds(x,y,Main.WINDOW_WITH/2,Main.WINDOW_HEIGHT/2);
     this.gameLoop();
 }
 private void gameLoop(){
@@ -34,12 +33,29 @@ private void gameLoop(){
         this.setFocusable(true);
         this.requestFocus();
         this.addKeyListener(new MovementListener(this));
-        while(true){
-            repaint();
+        while(true) {
+            if (!pause) {
+                repaint();
+            }else{
+                pause_Game();
+                break;
 
+
+            }
         }
     }).start();
+}
+private void pause_Game(){
+    JLabel label = new JLabel("Paused");
+    label.setForeground(Color.YELLOW);
+    Font font = new Font ("Ariel" , Font.BOLD, 35);
+    label.setFont(font);
+    label.setBounds(this.getWidth()/2,this.getHeight()/2,400,400);
+    this.add(label);
 
+}
+public void resume_game(){
+    gameLoop();
 }
 public void paint(Graphics g){
     super.paint(g);

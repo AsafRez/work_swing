@@ -3,7 +3,7 @@ package org.example;
 import java.awt.*;
 
 public class Player implements isAlive {
-    private static final int PLAYER_WIDTH = 350;
+    private static final int PLAYER_WIDTH = 300;
     private static final int PLAYER_HEIGHT= 50;
     private int size;
     private int locationX;
@@ -30,12 +30,15 @@ public class Player implements isAlive {
     public void setLocationY(int locationY) {
         this.locationY = locationY;
     }
-    public void move_Left(){
-        this.locationX -= 5;
+    public void move_Left() {
+        if (locationX > 0) {
+            this.locationX -= 5;
+        }
     }
     public void move_Right(){
-        this.locationX += 5;
-
+        if(locationX<MainGameView.WIDTH-PLAYER_WIDTH) {
+            this.locationX += 5;
+        }
     }
     public Boolean isAlive(){
         return isAlive;
