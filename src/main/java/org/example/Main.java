@@ -1,6 +1,7 @@
 package org.example;
 
 import javax.swing.*;
+import java.awt.*;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -32,13 +33,13 @@ public class Main {
             c_window.dispose();
         }
         c_window = new JFrame();
-        c_window.setSize(WINDOW_WITH, WINDOW_HEIGHT);
+        c_window.setExtendedState(JFrame.MAXIMIZED_BOTH);
         c_window.setLocationRelativeTo(null);
         c_window.setResizable(false);
         c_window.setLayout(null);
         c_window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        MainGameView the_game = new MainGameView(0, 0, WINDOW_WITH, WINDOW_HEIGHT);
+        System.out.println(c_window.getHeight());
+        MainGameView the_game = new MainGameView(0, 0, Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
         c_window.add(the_game);
         c_window.setVisible(true);
     }

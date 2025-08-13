@@ -1,6 +1,7 @@
 package org.example;
 
 import javax.swing.*;
+import java.awt.*;
 
 
 public class StartMenu extends JPanel {
@@ -17,6 +18,9 @@ public class StartMenu extends JPanel {
           Main.start_Game();
 
         });
+        Font font = new Font ("Ariel" , Font.ITALIC, 24);
+        JLabel start_label=create_Label(width/2,0,650,45,"Blocks Bomber",font);
+
     }
     private JButton create_Button(int x,int y,int width,int height,String text) {
         JButton startButton = new JButton(text);
@@ -24,19 +28,13 @@ public class StartMenu extends JPanel {
         this.add(startButton);
         return startButton;
     }
-//    private JCheckBox create_CheckBox(){
-//        JCheckBox full_screen = new JCheckBox("Full screen");
-//        full_screen.setBounds(540, 250, 100, 100);
-//        this.add(full_screen);
-//        full_screen.addItemListener(new ItemListener() {
-//            @Override
-//            public void itemStateChanged(ItemEvent e) {
-//                Main.set_Screen(full_screen.isSelected());
-//
-//            }
-//        });
-//        return full_screen;
-//
-//    }
+    private JLabel create_Label(int x, int y, int width, int height, String text, Font font) {
+        JLabel startLabel = new JLabel(text);
+        startLabel.setBounds(x, y, width, height);
+        startLabel.setFont(font);
+        startLabel.setText(text);
+        this.add(startLabel);
+        return startLabel;
+    }
 
 }
