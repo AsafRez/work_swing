@@ -1,5 +1,6 @@
 package org.example;
 
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -22,7 +23,28 @@ public class StartMenu extends JPanel {
         Font font = new Font ("Ariel" , Font.ITALIC, 24);
         JLabel start_label=create_Label(width/2,0,650,45,"Blocks Bomber",font);
         start_label.setForeground(Color.WHITE);
+        JLabel tennis_image=create_image(0,0,50,50,"Tennis_Ball");
+        JLabel basketball_image=create_image(51,0,50,50,"Football");
+        JLabel football_image=create_image(105,0,50,50,"Basketball");
+        SoundManager.play_music("Main_page_music.wav");
 
+
+    }
+
+    private JLabel create_image(int x,int y,int width,int height,String name) {
+        try {
+            // טוען את התמונה כמשאב מתוך תיקיית images שב-classpath
+            // שים לב לנתיב שמתחיל ב- `/`
+            ImageIcon imageIcon = new ImageIcon(getClass().getResource("/images/"+name+".png"));
+            JLabel imageLabel = new JLabel(imageIcon);
+            imageLabel.setBounds(x,y,width,height);
+            this.add(imageLabel);
+            return imageLabel;
+            // מוסיף את ה-JLabel ל-JPanel הנוכחי
+        } catch (NullPointerException e) {
+            System.err.println("שגיאה: התמונה לא נמצאה. ודא שהנתיב נכון.");
+            return null;
+        }
     }
     private JButton create_Button(int x,int y,int width,int height,String text) {
         JButton startButton = new JButton(text);
