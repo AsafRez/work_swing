@@ -7,8 +7,8 @@ import java.awt.*;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
 
-    public static final int WINDOW_WITH = 1024;
-    public static final int WINDOW_HEIGHT = 800;
+    public static final int WINDOW_WITH = 800;
+    public static final int WINDOW_HEIGHT = 480;
     public static JFrame c_window;
 
     public static void main(String[] args) {
