@@ -10,16 +10,16 @@ public class MainGameView extends JPanel{
     List<Enemy> enemies;
 
 
-public MainGameView (JFrame mainFrame){
+public MainGameView (int x, int y,int width,int height){
     this.setLayout(null);
     this.setBackground(Color.BLACK);
-    this.setBounds(0,0,mainFrame.getWidth(),(mainFrame.getHeight()));
+    this.setBounds(x,y,width,(height));
     this.setVisible(true);
     this.player = new Player(Main.WINDOW_HEIGHT/2,Main.WINDOW_HEIGHT-5);
     this.ball = new Ball(Main.WINDOW_HEIGHT/2,Main.WINDOW_HEIGHT/2);
     JLabel title = new JLabel("Click Counter");
     Font font = new Font ("Ariel" , Font.ITALIC, 24);
-    title.setBounds(0,0,Main.WINDOW_WITH/2,Main.WINDOW_HEIGHT/2);
+    title.setBounds(x,y,Main.WINDOW_WITH/2,Main.WINDOW_HEIGHT/2);
 }
 
 
