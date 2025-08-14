@@ -1,5 +1,6 @@
 package org.example;
 
+import javax.swing.*;
 import java.awt.*;
 
 
@@ -81,8 +82,14 @@ public class Block {
     public void setDestroyable(boolean destroyable) {
         this.destroyable = destroyable;
     }
+
+
     public void paint (Graphics graphics){
         graphics.setColor(Color.RED);
         graphics.fillRect(x, y, width, height);
     }
-}
+
+
+
+    }
+

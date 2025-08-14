@@ -25,6 +25,7 @@ public class MainGameView extends JPanel{
     this.player = new Player(width/2,height-200);
     this.gameLoop();
     this.ball=new Ball(width/2,height-400);
+    ball.setImage("Ball.jpg");
 
 
 }
