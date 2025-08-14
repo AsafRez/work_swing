@@ -41,7 +41,7 @@ public class Player{
         this.locationY = locationY;
     }
     public void move_Left() {
-        if (locationX > 0) {
+        if (this.bar[0].getX() > 0) {
             this.locationX -= 5;
             this.bar[0].setX(this.bar[0].getX() - 5);
             this.bar[1].setX(this.bar[1].getX()-5);
@@ -49,7 +49,7 @@ public class Player{
         }
     }
     public void move_Right(){
-        if(locationX<MainGameView.WIDTH-PLAYER_WIDTH) {
+        if(this.bar[2].getX()<MainGameView.WIDTH-PLAYER_WIDTH) {
             this.locationX += 5;
         }
     }
