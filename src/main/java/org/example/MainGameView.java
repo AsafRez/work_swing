@@ -12,6 +12,7 @@ public class MainGameView extends JPanel{
     public static int WIDTH;
     public static int HEIGHT;
     public  boolean pause=false;
+    private JLabel label;
 
     public Player getPlayer() {
         return player;
@@ -38,10 +39,7 @@ public class MainGameView extends JPanel{
     this.setBounds(x,y,width,(height));
     this.setVisible(true);
     this.player = new Player(width/2,height-200);
-        System.out.println(player);
     this.ball=new Ball(width/2,height-400);
-        System.out.println(ball.getLocationX());
-
     this.gameLoop();
 
 
@@ -68,7 +66,8 @@ private void gameLoop(){
                 if(this.checkCollision(ball)){
                     System.out.println("Collision");
                 }
-            } else {
+
+            }else{
                 break;
             }
         try {
@@ -80,17 +79,20 @@ private void gameLoop(){
     }).start();
 }
 private void pause_Game(){
-    JLabel label = new JLabel("Paused");
+    label = new JLabel("Paused");
     label.setForeground(Color.YELLOW);
     Font font = new Font ("Ariel" , Font.BOLD, 35);
     label.setFont(font);
     label.setBounds(0,0,400,400);
     System.out.println(label.getText());
     this.add(label);
+    this.revalidate();
+    this.repaint();
 
 }
 public void resume_game(){
     gameLoop();
+    label.setVisible(false);
 
 }
     public void stop_game(){
