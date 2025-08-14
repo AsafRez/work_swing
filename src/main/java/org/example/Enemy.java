@@ -2,7 +2,7 @@ package org.example;
 
 import java.awt.*;
 
-public class Enemy  implements isAlive {
+public class Enemy {
     private static final int ENEMY_WIDTH = 1;
     private static final int ENEMY_HEIGHT= 1;
 

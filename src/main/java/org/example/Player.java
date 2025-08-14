@@ -1,16 +1,26 @@
 package org.example;
 
+import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
-public class Player implements isAlive {
+public class Player{
 
     private int size;
+    private Block[] bar;
     private int locationX;
     private int locationY;
     private Boolean isAlive = true;
-    private final int PLAYER_WIDTH =Main.SCREEN_WIDTH/10 ;
-    private final int PLAYER_HEIGHT= Main.SCREEN_HEIGHT/100 ;
+    public static final int PLAYER_WIDTH =Main.SCREEN_WIDTH/30 ;
+    public static final int PLAYER_HEIGHT= Main.SCREEN_HEIGHT/100 ;
     public Player (int locationX, int locationY) {
+        this.bar = new Block[3];
+        for (int i = 0; i < 3; i++) {
+            bar[i] = new Block();
+            bar[i].setY(locationY);
+            bar[i].setX(locationX+i*PLAYER_WIDTH);
+
+        }
         this.locationX = locationX;
         this.locationY = locationY;
     }
@@ -33,6 +43,9 @@ public class Player implements isAlive {
     public void move_Left() {
         if (locationX > 0) {
             this.locationX -= 5;
+            this.bar[0].setX(this.bar[0].getX() - 5);
+            this.bar[1].setX(this.bar[1].getX()-5);
+            this.bar[2].setX(this.bar[2].getX()-5);
         }
     }
     public void move_Right(){
@@ -44,8 +57,11 @@ public class Player implements isAlive {
         return isAlive;
     }
     public void paint (Graphics graphics){
-        graphics.setColor(Color.GREEN);
-        graphics.fillRect(locationX,locationY,PLAYER_WIDTH,PLAYER_HEIGHT);
+        Image image=new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/bar.png"))).getImage();
+        graphics.drawImage(image,bar[0].getX(),bar[0].getY(),PLAYER_WIDTH*3,PLAYER_HEIGHT,null);
+
+
     }
+
 }
 

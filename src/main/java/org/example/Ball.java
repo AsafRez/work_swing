@@ -3,9 +3,10 @@ package org.example;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.ImageObserver;
+import java.util.Objects;
 
-public class Ball implements isAlive {
-    private static final int BALL_SIZE = Main.SCREEN_WIDTH / 90;
+public class Ball{
+    public static final int BALL_SIZE = Main.SCREEN_WIDTH / 60;
 
     private int size;
     private int locationX;
@@ -18,7 +19,7 @@ public class Ball implements isAlive {
         this.size = BALL_SIZE;
         this.locationX = locationX;
         this.locationY = locationY;
-        this.image = new ImageIcon(getClass().getResource("/images/Basketball.png")).getImage();
+        this.image = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/Basic_Ball.png"))).getImage();
     }
 
 
@@ -50,12 +51,13 @@ public class Ball implements isAlive {
         return isAlive;
     }
 
-    public void move_Left() {
+    public void move_Left_Up() {
         this.locationX--;
+        this.locationY++;
     }
 
-    public void move_Right() {
-        this.locationX++;
+    public void move_Right(int input) {
+        this.locationX+=input;
     }
 
     public void move_Up() {
@@ -63,9 +65,10 @@ public class Ball implements isAlive {
 
     }
 
-    public void move_Down() {
-        this.locationY++;
+    public void move_Down(int input) {
+        this.locationY+=input;
     }
+    //לבדוק אם צריך
 //    public void paint (Graphics graphics){
 //        graphics.setColor(Color.WHITE);
 //        graphics.fillOval(this.locationX,this.locationY,BALL_SIZE,BALL_SIZE);
