@@ -12,7 +12,9 @@ public class MainGameView extends JPanel{
     public static int HEIGHT;
     public  boolean pause=false;
 
-public MainGameView (int x, int y,int width,int height){
+
+
+    public MainGameView (int x, int y,int width,int height){
     this.blockss=new Blocks(width/4,height/6,width/2,height/3);
     this.WIDTH = width;
     this.HEIGHT = height;
@@ -22,13 +24,14 @@ public MainGameView (int x, int y,int width,int height){
     this.setVisible(true);
     this.player = new Player(width/2,height-200);
     this.gameLoop();
+    this.ball=new Ball(width/2,height-400);
 
 
 }
 private void gameLoop(){
     new Thread(()->{
         try{
-            Thread.sleep(1);
+            Thread.sleep(10);
         }catch(InterruptedException e){
 
         }
@@ -63,6 +66,7 @@ public void paint(Graphics g){
     super.paint(g);
     this.player.paint(g);
     this.blockss.paint(g);
+    this.ball.paint(g);
 
 }
 }

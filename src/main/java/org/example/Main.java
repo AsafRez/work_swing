@@ -1,8 +1,5 @@
 package org.example;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,24 +7,25 @@ import java.awt.*;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
 
-    public static final int WINDOW_WITH = 800;
+    public static final int WINDOW_WIDTH = 800;
     public static final int WINDOW_HEIGHT = 480;
     public static JFrame c_window;
+    public static final int SCREEN_WIDTH= Toolkit.getDefaultToolkit().getScreenSize().width;
+    public static final int SCREEN_HEIGHT= Toolkit.getDefaultToolkit().getScreenSize().height;
 
     public static void main(String[] args) {
         c_window = create_Menu_Window();
         c_window.setVisible(true);
 
-
     }
     private static JFrame create_Menu_Window() {
         JFrame frame = new JFrame();
-        frame.setSize(WINDOW_WITH, WINDOW_HEIGHT);
+        frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
         frame.setLayout(null);
-        StartMenu main_menu = new StartMenu(0, 0, WINDOW_WITH, WINDOW_HEIGHT);
+        StartMenu main_menu = new StartMenu(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
         frame.add(main_menu);
         return frame;
     }
@@ -43,7 +41,7 @@ public class Main {
         c_window.setLayout(null);
         c_window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         System.out.println(c_window.getHeight());
-        MainGameView the_game = new MainGameView(0, 0, Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
+        MainGameView the_game = new MainGameView(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         c_window.add(the_game);
         c_window.setVisible(true);
     }

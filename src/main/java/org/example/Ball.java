@@ -3,7 +3,7 @@ package org.example;
 import java.awt.*;
 
 public class Ball implements isAlive {
-    private static final int BALL_SIZE = 10;
+    private static final int BALL_SIZE = Main.SCREEN_WIDTH/95;
 
     private int size;
     private int locationX;
@@ -36,10 +36,22 @@ public class Ball implements isAlive {
     public Boolean isAlive() {
         return isAlive;
     }
+    public void move_Left(){
+        this.locationX--;
+    }
+    public void move_Right(){
+        this.locationX++;
+    }
+    public void move_Up(){
+        this.locationY--;
 
+    }
+    public void move_Down(){
+        this.locationY++;
+    }
     public void paint (Graphics graphics){
-        graphics.setColor(Color.RED);
-        graphics.fillOval(Main.WINDOW_HEIGHT/2,Main.WINDOW_WITH/2,BALL_SIZE,BALL_SIZE);
+        graphics.setColor(Color.WHITE);
+        graphics.fillOval(this.locationX,this.locationY,BALL_SIZE,BALL_SIZE);
         }
     }
 

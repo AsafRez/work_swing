@@ -3,13 +3,13 @@ package org.example;
 import java.awt.*;
 
 public class Player implements isAlive {
-    private static final int PLAYER_WIDTH =350 ;
-    private static final int PLAYER_HEIGHT= 25;
+
     private int size;
     private int locationX;
     private int locationY;
     private Boolean isAlive = true;
-
+    private final int PLAYER_WIDTH =Main.SCREEN_WIDTH/10 ;
+    private final int PLAYER_HEIGHT= Main.SCREEN_HEIGHT/100 ;
     public Player (int locationX, int locationY) {
         this.locationX = locationX;
         this.locationY = locationY;

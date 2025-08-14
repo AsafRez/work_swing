@@ -5,8 +5,8 @@ import java.awt.*;
 
 public class Blocks extends JPanel {
     private Block[][] blocks;
-    public static final int BLOCK_WIDTH=48;
-    public static final int BLOCK_HEIGHT=24;
+    public static final int BLOCK_WIDTH=Main.SCREEN_WIDTH/48;
+    public static final int BLOCK_HEIGHT=Main.SCREEN_HEIGHT/50;
     public Blocks(int x,int y, int width, int height) {
 
         this.blocks = new Block[height/(BLOCK_HEIGHT+5)][width/(BLOCK_WIDTH+5)];
