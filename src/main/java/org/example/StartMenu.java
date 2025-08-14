@@ -5,7 +5,6 @@ import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 
-
 public class StartMenu extends JPanel {
     public StartMenu(int x,int y,int width,int height) {
         this.setBounds(x,y,width,height);

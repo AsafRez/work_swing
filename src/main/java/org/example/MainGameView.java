@@ -2,18 +2,18 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 
 public class MainGameView extends JPanel{
     Player player;
     Ball ball;
-    List<Enemy> enemies;
     Dimension screenSize;
+    Blocks blockss;
     public static int WIDTH;
     public static int HEIGHT;
     public  boolean pause=false;
 
 public MainGameView (int x, int y,int width,int height){
+    this.blockss=new Blocks(width/4,height/6,width/2,height/3);
     this.WIDTH = width;
     this.HEIGHT = height;
     this.setLayout(null);
@@ -22,11 +22,13 @@ public MainGameView (int x, int y,int width,int height){
     this.setVisible(true);
     this.player = new Player(width/2,height-200);
     this.gameLoop();
+
+
 }
 private void gameLoop(){
     new Thread(()->{
         try{
-            Thread.sleep(1000);
+            Thread.sleep(1);
         }catch(InterruptedException e){
 
         }
@@ -60,5 +62,7 @@ public void resume_game(){
 public void paint(Graphics g){
     super.paint(g);
     this.player.paint(g);
+    this.blockss.paint(g);
+
 }
 }
