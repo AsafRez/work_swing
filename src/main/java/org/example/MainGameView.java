@@ -72,7 +72,6 @@ private void gameLoop(){
                     ball.move_Down(1);
                     repaint();
                     if (this.checkCollision(ball)) {
-                        System.out.println("Collision");
                     }
 
                 } else {
