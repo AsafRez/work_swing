@@ -54,27 +54,36 @@ public class MainGameView extends JPanel{
             return false;
         }
     }
+    private boolean checkBall(){
+        if(this.ball.getLocationY()>HEIGHT-Ball.BALL_SIZE){
+           pause_Game();
+            return true;
+        }
+        return false;
+    }
 private void gameLoop(){
     new Thread(()->{
         this.setFocusable(true);
         this.requestFocus();
         this.addKeyListener(new MovementListener(this));
         while (true) {
-            if (!pause) {
-                ball.move_Down(1);
-                repaint();
-                if(this.checkCollision(ball)){
-                    System.out.println("Collision");
-                }
+            if (!checkBall()) {
+                if (!pause) {
+                    ball.move_Down(1);
+                    repaint();
+                    if (this.checkCollision(ball)) {
+                        System.out.println("Collision");
+                    }
 
-            }else{
-                break;
+                } else {
+                    break;
+                }
+                try {
+                    Thread.sleep(10); // בערך 60FPS
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-        try {
-            Thread.sleep(10); // בערך 60FPS
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         }
     }).start();
 }
@@ -84,7 +93,6 @@ private void pause_Game(){
     Font font = new Font ("Ariel" , Font.BOLD, 35);
     label.setFont(font);
     label.setBounds(0,0,400,400);
-    System.out.println(label.getText());
     this.add(label);
     this.revalidate();
     this.repaint();
@@ -102,7 +110,8 @@ public void paint(Graphics g){
     super.paint(g);
     this.player.paint(g);
     this.blockss.paint(g);
-    this.ball.paint(g);
-
+    if(ball!=null) {
+        this.ball.paint(g);
+    }
 }
 }
