@@ -5,10 +5,11 @@ import java.awt.*;
 
 public class Blocks extends JPanel {
     private Block[][] blocks;
-    public static final int BLOCK_WIDTH=Main.SCREEN_WIDTH/40;
+    public static final int BLOCK_WIDTH=Main.SCREEN_WIDTH/30;
     public static final int BLOCK_HEIGHT=Main.SCREEN_HEIGHT/50;
     public Blocks(int x,int y, int width, int height) {
 
+        //פעולה שמוצאת את הכדור ביחס לבלוקים
         this.blocks = new Block[height/(BLOCK_HEIGHT+5)][width/(BLOCK_WIDTH+5)];
         int block_x=x;
         int block_y=y;
@@ -26,9 +27,6 @@ public class Blocks extends JPanel {
         }
 
     }
-//    public JPanel get_Panel(){
-//        return this.blocksPanel;
-//    }
     public void paint(Graphics g) {
         for (int i = 0; i <blocks.length ; i++) {
             for (int j = 0; j <blocks[0].length; j++) {

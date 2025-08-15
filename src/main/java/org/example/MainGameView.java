@@ -33,7 +33,7 @@ public class MainGameView extends JPanel{
     }
 
     public MainGameView (int x, int y, int width, int height){
-    this.blockss=new Blocks(width/4,height/6,width/2,height/3);
+    this.blockss=new Blocks((Blocks.BLOCK_WIDTH%30)/2,height/6,width,height/3);
     this.WIDTH = width;
     this.HEIGHT = height;
     this.setLayout(null);
@@ -47,59 +47,68 @@ public class MainGameView extends JPanel{
 
 
 }
-private String check_CollisionPart(boolean middle,boolean left,boolean right){
+private String check_CollisionPart(boolean left,boolean middle,boolean right){
         if(left){
             return "left";
         }
         else if(right){
             return "right";
-        }{
+        }else if(middle){
             return "middle";
     }
+        return "";
 }
-    private boolean checkCollision (Ball ball) {
+    private void checkCollision (Ball ball) {
         Rectangle ballRect = new Rectangle(ball.getLocationX(), ball.getLocationY(), Ball.BALL_SIZE, Ball.BALL_SIZE);
         Rectangle playerRect_Left = new Rectangle(this.player.getBar()[0].getX(), this.player.getBar()[0].getY(), Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
         Rectangle playerRect_Middle = new Rectangle(this.player.getBar()[1].getX(), this.player.getBar()[1].getY(), Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
         Rectangle playerRect_Right = new Rectangle(this.player.getBar()[2].getX(), this.player.getBar()[2].getY(), Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
-        String collison_Parts=check_CollisionPart(ballRect.intersects(playerRect_Left),ballRect.intersects(playerRect_Middle),ballRect.intersects(playerRect_Right));
+        String collison_Parts = check_CollisionPart(ballRect.intersects(playerRect_Left), ballRect.intersects(playerRect_Middle), ballRect.intersects(playerRect_Right));
+        switch (collison_Parts) {
 
-        return collison_Parts.equals("left");
+            case "left":
+                Ball.X_MOVEMENT = (Ball.X_MOVEMENT-2);
+                Ball.Y_MOVEMENT = (Ball.Y_MOVEMENT)*-1;
+                break;
+            case "right":
+                Ball.X_MOVEMENT = (Ball.X_MOVEMENT)+2;
+                Ball.Y_MOVEMENT = (Ball.Y_MOVEMENT)*-1;
+                break;
+            case "middle" : Ball.Y_MOVEMENT = (Ball.Y_MOVEMENT)*-1;
+            break;
+        }
 
     }
-    private boolean checkBall(){
-        if(this.ball.getLocationY()>HEIGHT-Ball.BALL_SIZE){
-           pause_Game("Lost");
-            return true;
+
+    private void checkBall(){
+        if(ball.getLocationY()<=0){
+            Ball.Y_MOVEMENT = (Ball.Y_MOVEMENT*-1);
+        }else if(ball.getLocationX()<=0){
+            Ball.X_MOVEMENT = (Ball.X_MOVEMENT*-1);
+        }else if(ball.getLocationX()>WIDTH-Ball.BALL_SIZE){
+            Ball.X_MOVEMENT = (Ball.X_MOVEMENT*-1);
         }
-        return false;
     }
 private void gameLoop(){
-    new Thread(()->{
+    new Thread(()-> {
         this.setFocusable(true);
         this.requestFocus();
         this.addKeyListener(new MovementListener(this));
 
         while (true) {
-            if (!checkBall()) {
-                if(checkCollision(ball)){
-                    System.out.println("Collision");
-                }
-                if (!pause) {
-                    ball.setLocationX(ball.getLocationX()+1);
-                    ball.setLocationY(ball.getLocationY()+1);
-                    repaint();
-                } else {
-                    break;
-                }
-                try {
-                    Thread.sleep(1000 / 60); // בערך 60FPS
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            ball.move_Y();
+            ball.move_X();
+            repaint();
+            checkCollision(ball);
+            checkBall();
+
+            try {
+                Thread.sleep(1000 / 60); // בערך 60FPS
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
-    }).start();
+                }).start();
 }
     private void pause_Game(String message){
         this.pause=true;
@@ -113,14 +122,6 @@ private void gameLoop(){
     this.repaint();
 
 }
-public void resume_game(){
-    gameLoop();
-    label.setVisible(false);
-
-}
-    public void stop_game(){
-        pause_Game("Paused");
-    }
 public void paint(Graphics g){
     super.paint(g);
     this.player.paint(g);
