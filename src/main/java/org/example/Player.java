@@ -50,7 +50,9 @@ public class Player{
     }
     public void move_Right(){
         if(this.bar[2].getX()<MainGameView.WIDTH-PLAYER_WIDTH) {
-            this.locationX += 5;
+            this.bar[0].setX(this.bar[0].getX() + 5);
+            this.bar[1].setX(this.bar[1].getX()+5);
+            this.bar[2].setX(this.bar[2].getX()+5);
         }
     }
     public Boolean isAlive(){
