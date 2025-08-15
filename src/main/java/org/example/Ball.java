@@ -68,11 +68,6 @@ public class Ball{
     public void move_Down(int input) {
         this.locationY+=input;
     }
-    //לבדוק אם צריך
-//    public void paint (Graphics graphics){
-//        graphics.setColor(Color.WHITE);
-//        graphics.fillOval(this.locationX,this.locationY,BALL_SIZE,BALL_SIZE);
-//        }
 
     public void paint(Graphics graphics) {
         graphics.drawImage(this.getImage(), this.locationX, this.locationY, BALL_SIZE, BALL_SIZE, null);
