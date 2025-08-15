@@ -56,7 +56,7 @@ public class MainGameView extends JPanel{
     }
     private boolean checkBall(){
         if(this.ball.getLocationY()>HEIGHT-Ball.BALL_SIZE){
-           pause_Game();
+           pause_Game("Lost");
             return true;
         }
         return false;
@@ -66,19 +66,18 @@ private void gameLoop(){
         this.setFocusable(true);
         this.requestFocus();
         this.addKeyListener(new MovementListener(this));
+
         while (true) {
             if (!checkBall()) {
                 if (!pause) {
-                    ball.move_Down(1);
+                    ball.setLocationX(ball.getLocationX()+1);
+                    ball.setLocationY(ball.getLocationY()+1);
                     repaint();
-                    if (this.checkCollision(ball)) {
-                    }
-
                 } else {
                     break;
                 }
                 try {
-                    Thread.sleep(10); // בערך 60FPS
+                    Thread.sleep(1000 / 60); // בערך 60FPS
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -86,8 +85,8 @@ private void gameLoop(){
         }
     }).start();
 }
-private void pause_Game(){
-    label = new JLabel("Paused");
+private void pause_Game(String message){
+    label = new JLabel(message);
     label.setForeground(Color.YELLOW);
     Font font = new Font ("Ariel" , Font.BOLD, 35);
     label.setFont(font);
@@ -103,7 +102,7 @@ public void resume_game(){
 
 }
     public void stop_game(){
-        pause_Game();
+        pause_Game("Paused");
     }
 public void paint(Graphics g){
     super.paint(g);
