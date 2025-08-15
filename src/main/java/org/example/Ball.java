@@ -2,6 +2,7 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
 import java.awt.image.ImageObserver;
 import java.util.Objects;
 
@@ -13,13 +14,15 @@ public class Ball{
     private int locationY;
     private Boolean isAlive = true;
     private Image image;
+    public static int Y_MOVEMENT=1;
+    public static int X_MOVEMENT=1;
 
 
     public Ball(int locationX, int locationY) {
         this.size = BALL_SIZE;
         this.locationX = locationX;
         this.locationY = locationY;
-        this.image = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/Basic_Ball.png"))).getImage();
+        this.image = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Images/Basic_Ball.png"))).getImage();
     }
 
 
@@ -51,22 +54,27 @@ public class Ball{
         return isAlive;
     }
 
-    public void move_Left_Up() {
-        this.locationX--;
-        this.locationY++;
+    public void move_Left() {
+        this.locationX-=X_MOVEMENT;
     }
 
-    public void move_Right(int input) {
-        this.locationX+=input;
+    public void move_Right() {
+        this.locationX+=X_MOVEMENT;
     }
 
     public void move_Up() {
-        this.locationY--;
+        this.locationY-=Y_MOVEMENT;
 
     }
+    public void invers_Y(){
+        this.locationY*=-1;
+    }
+    public void invers_X(){
+        this.locationX*=-1;
+    }
 
-    public void move_Down(int input) {
-        this.locationY+=input;
+    public void move_Down() {
+        this.locationY+=Y_MOVEMENT;
     }
 
     public void paint(Graphics graphics) {

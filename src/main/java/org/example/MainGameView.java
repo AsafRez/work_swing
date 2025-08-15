@@ -1,7 +1,9 @@
 package org.example;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class MainGameView extends JPanel{
 //    private static int final lives;
@@ -45,14 +47,25 @@ public class MainGameView extends JPanel{
 
 
 }
+private String check_CollisionPart(boolean middle,boolean left,boolean right){
+        if(left){
+            return "left";
+        }
+        else if(right){
+            return "right";
+        }{
+            return "middle";
+    }
+}
     private boolean checkCollision (Ball ball) {
         Rectangle ballRect = new Rectangle(ball.getLocationX(), ball.getLocationY(), Ball.BALL_SIZE, Ball.BALL_SIZE);
-        Rectangle playerRect = new Rectangle(this.player.getLocationX(), this.player.getLocationY(), (Player.PLAYER_WIDTH)*3, Player.PLAYER_HEIGHT);
-        if (ballRect.intersects(playerRect)) {
-            return true;
-        } else {
-            return false;
-        }
+        Rectangle playerRect_Left = new Rectangle(this.player.getBar()[0].getX(), this.player.getBar()[0].getY(), Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
+        Rectangle playerRect_Middle = new Rectangle(this.player.getBar()[1].getX(), this.player.getBar()[1].getY(), Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
+        Rectangle playerRect_Right = new Rectangle(this.player.getBar()[2].getX(), this.player.getBar()[2].getY(), Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
+        String collison_Parts=check_CollisionPart(ballRect.intersects(playerRect_Left),ballRect.intersects(playerRect_Middle),ballRect.intersects(playerRect_Right));
+
+        return collison_Parts.equals("left");
+
     }
     private boolean checkBall(){
         if(this.ball.getLocationY()>HEIGHT-Ball.BALL_SIZE){
@@ -69,6 +82,9 @@ private void gameLoop(){
 
         while (true) {
             if (!checkBall()) {
+                if(checkCollision(ball)){
+                    System.out.println("Collision");
+                }
                 if (!pause) {
                     ball.setLocationX(ball.getLocationX()+1);
                     ball.setLocationY(ball.getLocationY()+1);
@@ -85,7 +101,8 @@ private void gameLoop(){
         }
     }).start();
 }
-private void pause_Game(String message){
+    private void pause_Game(String message){
+        this.pause=true;
     label = new JLabel(message);
     label.setForeground(Color.YELLOW);
     Font font = new Font ("Ariel" , Font.BOLD, 35);

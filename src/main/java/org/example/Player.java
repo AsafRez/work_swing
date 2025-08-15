@@ -12,7 +12,7 @@ public class Player{
     private int locationY;
     private Boolean isAlive = true;
     public static final int PLAYER_WIDTH =Main.SCREEN_WIDTH/30 ;
-    public static final int PLAYER_HEIGHT= Main.SCREEN_HEIGHT/100 ;
+    public static final int PLAYER_HEIGHT= Main.SCREEN_HEIGHT/45 ;
     public Player (int locationX, int locationY) {
         this.bar = new Block[3];
         for (int i = 0; i < 3; i++) {
@@ -35,6 +35,10 @@ public class Player{
 
     public int getLocationY() {
         return locationY;
+    }
+
+    public Block[] getBar() {
+        return bar;
     }
 
     public void setLocationY(int locationY) {
@@ -60,6 +64,7 @@ public class Player{
     }
     public void paint (Graphics graphics){
         Image image=new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/bar.png"))).getImage();
+
         graphics.drawImage(image,bar[0].getX(),bar[0].getY(),PLAYER_WIDTH*3,PLAYER_HEIGHT,null);
 
 
