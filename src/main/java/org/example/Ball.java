@@ -2,8 +2,6 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
-import java.awt.image.ImageObserver;
 import java.util.Objects;
 
 public class Ball{
@@ -14,8 +12,8 @@ public class Ball{
     private int locationY;
     private Boolean isAlive = true;
     private Image image;
-    public static int Y_MOVEMENT=1;
-    public static int X_MOVEMENT=1;
+    public static int Y_MOVEMENT=-2;
+    public static int X_MOVEMENT=2;
 
 
     public Ball(int locationX, int locationY) {
@@ -54,27 +52,13 @@ public class Ball{
         return isAlive;
     }
 
-    public void move_Left() {
-        this.locationX-=X_MOVEMENT;
-    }
-
-    public void move_Right() {
+    public void move_X() {
         this.locationX+=X_MOVEMENT;
     }
 
-    public void move_Up() {
+    public void move_Y() {
         this.locationY-=Y_MOVEMENT;
 
-    }
-    public void invers_Y(){
-        this.locationY*=-1;
-    }
-    public void invers_X(){
-        this.locationX*=-1;
-    }
-
-    public void move_Down() {
-        this.locationY+=Y_MOVEMENT;
     }
 
     public void paint(Graphics graphics) {
