@@ -43,6 +43,7 @@ public class Main {
         MainGameView the_game = new MainGameView(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         c_window.add(the_game);
         c_window.setVisible(true);
+        //בדיקה
     }
 
     }
