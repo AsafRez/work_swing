@@ -47,36 +47,23 @@ public class MainGameView extends JPanel{
 
 
 }
-private String check_CollisionPart(boolean left,boolean middle,boolean right){
+private void check_CollisionPart(boolean left,boolean middle,boolean right){
         if(left){
-            return "left";
+            CollisionPart.LEFT.move_ball();
+        }
+        else if(middle){
+             CollisionPart.MIDDLE.move_ball();
         }
         else if(right){
-            return "right";
-        }else if(middle){
-            return "middle";
-    }
-        return "";
+            CollisionPart.RIGHT.move_ball();
+        }
 }
     private void checkCollision (Ball ball) {
         Rectangle ballRect = new Rectangle(ball.getLocationX(), ball.getLocationY(), Ball.BALL_SIZE, Ball.BALL_SIZE);
         Rectangle playerRect_Left = new Rectangle(this.player.getBar()[0].getX(), this.player.getBar()[0].getY(), Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
         Rectangle playerRect_Middle = new Rectangle(this.player.getBar()[1].getX(), this.player.getBar()[1].getY(), Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
         Rectangle playerRect_Right = new Rectangle(this.player.getBar()[2].getX(), this.player.getBar()[2].getY(), Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
-        String collison_Parts = check_CollisionPart(ballRect.intersects(playerRect_Left), ballRect.intersects(playerRect_Middle), ballRect.intersects(playerRect_Right));
-        switch (collison_Parts) {
-
-            case "left":
-                Ball.X_MOVEMENT = (Ball.X_MOVEMENT-2);
-                Ball.Y_MOVEMENT = (Ball.Y_MOVEMENT)*-1;
-                break;
-            case "right":
-                Ball.X_MOVEMENT = (Ball.X_MOVEMENT)+2;
-                Ball.Y_MOVEMENT = (Ball.Y_MOVEMENT)*-1;
-                break;
-            case "middle" : Ball.Y_MOVEMENT = (Ball.Y_MOVEMENT)*-1;
-            break;
-        }
+        check_CollisionPart(ballRect.intersects(playerRect_Left), ballRect.intersects(playerRect_Middle), ballRect.intersects(playerRect_Right));
 
     }
 
