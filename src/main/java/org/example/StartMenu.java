@@ -27,12 +27,6 @@ public class StartMenu extends JPanel {
         JLabel start_label=create_Label(width/2,0,650,45,"Blocks Bomber",font);
         start_label.setForeground(Color.WHITE);
 
-//        JLabel tennis_image=create_image(0,0,50,50,"Tennis_Ball");
-//        JLabel basketball_image=create_image(51,0,50,50,"Football");
-//        JLabel football_image=create_image(105,0,50,50,"Basic_Ball");
-
-
-
     }
 
     private JLabel create_image(int x,int y,int width,int height,String name) {

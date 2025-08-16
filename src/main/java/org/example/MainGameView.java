@@ -1,12 +1,10 @@
 package org.example;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 
 public class MainGameView extends JPanel{
-//    private static int final lives;
+    private JLabel label;
     private Player player;
     private Ball ball;
     private Dimension screenSize;
@@ -14,7 +12,6 @@ public class MainGameView extends JPanel{
     public static int WIDTH;
     public static int HEIGHT;
     public  boolean pause=false;
-    private JLabel label;
 
     public Player getPlayer() {
         return player;
@@ -42,7 +39,7 @@ public class MainGameView extends JPanel{
     this.setVisible(true);
     this.player = new Player(width/2,height-200);
     this.ball=new Ball(width/2,height-400);
-    this.gameLoop();
+    this.game_Loop();
 
 
 
@@ -58,7 +55,7 @@ private void check_CollisionPart(boolean left,boolean middle,boolean right){
             CollisionPart.RIGHT.move_ball();
         }
 }
-    private void checkCollision (Ball ball) {
+    private void check_Collision(Ball ball) {
         Rectangle ballRect = new Rectangle(ball.getLocationX(), ball.getLocationY(), Ball.BALL_SIZE, Ball.BALL_SIZE);
         Rectangle playerRect_Left = new Rectangle(this.player.getBar()[0].getX(), this.player.getBar()[0].getY(), Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
         Rectangle playerRect_Middle = new Rectangle(this.player.getBar()[1].getX(), this.player.getBar()[1].getY(), Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
@@ -67,28 +64,39 @@ private void check_CollisionPart(boolean left,boolean middle,boolean right){
 
     }
 
-    private void checkBall(){
+    private void check_Ball_Bounds(){
         if(ball.getLocationY()<=0){
             Ball.Y_MOVEMENT = (Ball.Y_MOVEMENT*-1);
+            play_sound("Ball_Hitting_Wall.wav");
         }else if(ball.getLocationX()<=0){
             Ball.X_MOVEMENT = (Ball.X_MOVEMENT*-1);
+            play_sound("Ball_Hitting_Wall.wav");
         }else if(ball.getLocationX()>WIDTH-Ball.BALL_SIZE){
             Ball.X_MOVEMENT = (Ball.X_MOVEMENT*-1);
+            play_sound("Ball_Hitting_Wall.wav");
         }
     }
-private void gameLoop(){
+private void game_Loop(){
     new Thread(()-> {
         this.setFocusable(true);
         this.requestFocus();
         this.addKeyListener(new MovementListener(this));
-
         while (true) {
-            ball.move_Y();
-            ball.move_X();
-            repaint();
-            checkCollision(ball);
-            checkBall();
+            if (!pause) {
+                if(label!=null){
+                    remove(label);
+                    revalidate();
+                    label = null;
+                }
+                ball.move_Y();
+                ball.move_X();
+                repaint();
+                check_Collision(ball);
+                check_Ball_Bounds();
 
+            } else{
+                pause_Game();
+            }
             try {
                 Thread.sleep(1000 / 60); // בערך 60FPS
             } catch (InterruptedException e) {
@@ -97,17 +105,18 @@ private void gameLoop(){
         }
                 }).start();
 }
-    private void pause_Game(String message){
-        this.pause=true;
-    label = new JLabel(message);
-    label.setForeground(Color.YELLOW);
-    Font font = new Font ("Ariel" , Font.BOLD, 35);
-    label.setFont(font);
-    label.setBounds(0,0,400,400);
-    this.add(label);
-    this.revalidate();
-    this.repaint();
 
+    public void pause_Game(){
+        if(label==null) {
+            label = new JLabel("Pause");
+            label.setForeground(Color.YELLOW);
+            Font font = new Font("Ariel", Font.BOLD, 35);
+            label.setFont(font);
+            label.setBounds(0, 0, 400, 400);
+            revalidate();
+            add(label);
+            repaint();
+        }
 }
 public void paint(Graphics g){
     super.paint(g);
@@ -116,5 +125,10 @@ public void paint(Graphics g){
     if(ball!=null) {
         this.ball.paint(g);
     }
+}
+private void play_sound(String message){
+        SoundManager hitting=new  SoundManager(message);
+        hitting.stop_music();
+
 }
 }

@@ -19,6 +19,8 @@ public class MovementListener implements KeyListener {
             this.mainGameView.getPlayer().move_Left();
         }else if (e.getKeyCode() == KeyEvent.VK_RIGHT){
             this.mainGameView.getPlayer().move_Right();
+        }else if (e.getKeyCode() == KeyEvent.VK_ESCAPE){
+            this.mainGameView.pause=!this.mainGameView.pause;
         }
 
         }
