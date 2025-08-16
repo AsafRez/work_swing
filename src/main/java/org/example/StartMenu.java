@@ -4,31 +4,55 @@ package org.example;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class StartMenu extends JPanel {
+    class Background extends JPanel {
+        private Image image;
+        public Background(String imagename) {
+            this.image = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Images/"+imagename+".png"))).getImage();
+            this.setLayout(null);
+        }
+        public void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.drawImage(image, 0, 0, this);
+        }
+    }
+    private Background image_Background;
+    private String[] images={"stars","stars2","retro","hills"};
     public StartMenu(int x,int y,int width,int height) {
         this.setBounds(x,y,width,height);
-        this.setBackground(Color.blue);
         this.setLayout(null);
-        this.setVisible(true);
+        this.image_Background = new Background(images[(int)(Math.random()*images.length)]);
+        this.image_Background.setBounds(0,0,width,height);
         SoundManager manger = new SoundManager("Main_page_music.wav");
         JButton start_button=this.create_Button((int)((width/2)),height/2+50,100,100,"Start");
         JButton exit_button=this.create_Button((int)((width/4)),height/2+50,100,100,"Exit");
+        Font font = new Font ("Ariel" , Font.BOLD, 35);
+        JLabel start_label=create_Label(width/2-200,0,650,45,"Blocks Bomber",font);
+        start_label.setForeground(Color.WHITE);
+        JTextField user_name=new JTextField(15);
+        user_name.setBounds(width/5+70,height/2,200, 40);
+        user_name.setEditable(true);
+        user_name.setFont(new Font("Ariel",Font.BOLD,20));
+        JLabel enter_Uname=create_Label(width/5+70,height/3,650,45,"Enter your name",font);
+        enter_Uname.setForeground(Color.WHITE);
+        this.add(user_name);
+        this.setVisible(true);
+        this.repaint();
         exit_button.addActionListener((event)->{
             System.exit(0);
 
         });
         start_button.addActionListener((event)->{
-          Main.start_Game();
-          manger.stop_music();
+            MainGameView.USER_NAME=user_name.getText();
+            Main.start_Game();
+            manger.stop_music();
 
         });
-        Font font = new Font ("Ariel" , Font.BOLD, 35);
-        JLabel start_label=create_Label(width/2,0,650,45,"Blocks Bomber",font);
-        start_label.setForeground(Color.WHITE);
+        this.add(image_Background);
 
     }
-
     private JLabel create_image(int x,int y,int width,int height,String name) {
         try {
             // טוען את התמונה כמשאב מתוך תיקיית images שב-classpath

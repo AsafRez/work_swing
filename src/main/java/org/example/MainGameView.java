@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainGameView extends JPanel{
+    public static String USER_NAME="";
     private JLabel label;
     private Player player;
     private Ball ball;
@@ -40,6 +41,7 @@ public class MainGameView extends JPanel{
     this.player = new Player(width/2,height-200);
     this.ball=new Ball(width/2,height-400);
     this.game_Loop();
+        System.out.println(USER_NAME);
 
 
 
