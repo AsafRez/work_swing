@@ -1,16 +1,15 @@
 package org.example;
 
 
-import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 
 public class StartMenu extends JPanel {
-    class Background extends JPanel {
-        private Image image;
-        public Background(String imagename) {
-            this.image = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Images/"+imagename+".png"))).getImage();
+   public class Background extends JPanel {
+        private final Image image;
+        public Background(String imageName) {
+            this.image = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Images/"+ imageName +".png"))).getImage();
             this.setLayout(null);
         }
         public void paintComponent(Graphics g) {
@@ -46,6 +45,7 @@ public class StartMenu extends JPanel {
         });
         start_button.addActionListener((event)->{
             MainGameView.USER_NAME=user_name.getText();
+            MainGameView.game_background=image_Background;
             Main.start_Game();
             manger.stop_music();
 
@@ -53,7 +53,12 @@ public class StartMenu extends JPanel {
         this.add(image_Background);
 
     }
-    private JLabel create_image(int x,int y,int width,int height,String name) {
+
+    public Background getImage_Background() {
+        return image_Background;
+    }
+
+    private JLabel create_image(int x, int y, int width, int height, String name) {
         try {
             // טוען את התמונה כמשאב מתוך תיקיית images שב-classpath
             // שים לב לנתיב שמתחיל ב- `/`

@@ -2,9 +2,12 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class MainGameView extends JPanel{
     public static String USER_NAME="";
+    public static StartMenu.Background game_background;
     private JLabel label;
     private Player player;
     private Ball ball;
@@ -13,6 +16,7 @@ public class MainGameView extends JPanel{
     public static int WIDTH;
     public static int HEIGHT;
     public  boolean pause=false;
+    public  boolean end=false;
 
     public Player getPlayer() {
         return player;
@@ -41,8 +45,8 @@ public class MainGameView extends JPanel{
     this.player = new Player(width/2,height-200);
     this.ball=new Ball(width/2,height-400);
     this.game_Loop();
-        System.out.println(USER_NAME);
-
+    game_background.setBounds(0,0,width,height);
+    this.add(game_background);
 
 
 }
@@ -76,6 +80,20 @@ private void check_CollisionPart(boolean left,boolean middle,boolean right){
         }else if(ball.getLocationX()>WIDTH-Ball.BALL_SIZE){
             Ball.X_MOVEMENT = (Ball.X_MOVEMENT*-1);
             play_sound("Ball_Hitting_Wall.wav");
+        }else if(ball.getLocationY()>HEIGHT){
+            System.out.println("Lost");
+            end_game();
+
+        }
+    }
+    private void end_game(){
+        end=true;
+        try {
+            FileWriter write_scores = new FileWriter("Score_Board", true);
+            write_scores.write("הניקוד של "+USER_NAME+"  הוא:\n  ");
+            write_scores.close();
+        }catch (IOException e){
+            System.out.println("בעיה בשמירת נתונים");
         }
     }
 private void game_Loop(){
@@ -84,7 +102,7 @@ private void game_Loop(){
         this.requestFocus();
         this.addKeyListener(new MovementListener(this));
         while (true) {
-            if (!pause) {
+            if (!pause&&!end) {
                 if(label!=null){
                     remove(label);
                     revalidate();
