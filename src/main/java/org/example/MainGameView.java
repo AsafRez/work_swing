@@ -110,7 +110,6 @@ public class MainGameView extends JPanel {
             }
             String[] parts = line.split("\\|"); // מפריד לפי הסימן
             highest_score = Integer.parseInt(parts[1].trim());
-
         } catch (IOException e) {
         }
         return highest_score;
