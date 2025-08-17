@@ -115,6 +115,9 @@ public class MainGameView extends JPanel {
         }
         return highest_score;
     }
+    //נהפוך אץ הפונקציה  הזאת שתקבל קלט והקלט הוא או שאתה מצנח או שאתה מפסיד
+    //לעשות פונקצייה שאחר ישמנצחים מחזירה למסך ראשי גם קורה כאשר מפסידים
+    //לעשות counter ששסופר את הבלוקים שנתפסו ואז בודקים אם זה בגודל המערך
     private void end_game(){
         end=true;
         try {
@@ -149,8 +152,6 @@ private void game_Loop(){
                     this.highesLabel.setText("Highest Score: " + highest_score);
 
                 }
-            } else{
-                pause_Game();
             }
             try {
                 Thread.sleep(1000 / 60); // בערך 60FPS
@@ -162,6 +163,7 @@ private void game_Loop(){
 }
 
     public void pause_Game(){
+        pause=!pause;
         if(statusLabel ==null) {
             statusLabel = new JLabel("Pause");
             statusLabel.setForeground(Color.YELLOW);
