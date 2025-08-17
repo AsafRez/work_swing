@@ -14,22 +14,27 @@ public class Ball{
     private Image image;
     public static int Y_MOVEMENT=-2;
     public static int X_MOVEMENT=2;
+    private Rectangle rect_ball;
 
 
     public Ball(int locationX, int locationY) {
         this.size = BALL_SIZE;
         this.locationX = locationX;
         this.locationY = locationY;
-        this.image = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Images/Basic_Ball.png"))).getImage();
+        this.image = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Images/Balls/Basic_Ball.png"))).getImage();
+        this.rect_ball = new Rectangle(locationX, locationY, 10, 10);
     }
 
-
+    public Rectangle getRect_ball() {
+        return rect_ball;
+    }
     public int getLocationX() {
         return locationX;
     }
 
     public void setLocationX(int locationX) {
         this.locationX = locationX;
+        this.rect_ball.setLocation(locationX, locationY);
     }
 
     public int getLocationY() {
@@ -38,6 +43,8 @@ public class Ball{
 
     public void setLocationY(int locationY) {
         this.locationY = locationY;
+        this.rect_ball.setLocation(locationX, locationY);
+
     }
 
     public Image getImage() {
@@ -63,6 +70,7 @@ public class Ball{
 
     public void paint(Graphics graphics) {
         graphics.drawImage(this.getImage(), this.locationX, this.locationY, BALL_SIZE, BALL_SIZE, null);
+        graphics.drawRect(this.locationX, this.locationY, BALL_SIZE, BALL_SIZE);
 
     }
 }

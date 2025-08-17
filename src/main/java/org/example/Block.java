@@ -1,11 +1,10 @@
 package org.example;
 
-import javax.swing.*;
 import java.awt.*;
 
 
 public class Block {
-    private boolean destroyed;
+    private boolean not_visible;
     private Color color;
     private boolean destroyable;
     private Image image;
@@ -13,12 +12,18 @@ public class Block {
     private int y;
     private int width;
     private int height;
+    private Rectangle block_rect;
 
     public Block() {
-        this.destroyed = false;
+        this.not_visible = false;
         this.color = Color.WHITE;
     }
-
+    public void setRect(int rect_x, int rect_y, int rect_width, int rect_height) {
+        this.block_rect = new Rectangle(rect_x-Blocks.BLOCK_WIDTH/2, rect_y-Blocks.BLOCK_HEIGHT/2, rect_width, rect_height);
+    }
+    public Rectangle getRect() {
+        return this.block_rect;
+    }
     public int getX() {
         return x;
     }
@@ -59,12 +64,14 @@ public class Block {
         this.image = image;
     }
 
-    public boolean isDestroyed() {
-        return destroyed;
+    public boolean isNot_visible() {
+        return not_visible;
     }
 
-    public void setDestroyed(boolean destroyed) {
-        this.destroyed = destroyed;
+    public void setVisible() {
+        if(!destroyable) {
+        this.not_visible = true;
+    }
     }
 
     public Color getColor() {
@@ -85,8 +92,10 @@ public class Block {
 
 
     public void paint (Graphics graphics){
-        graphics.setColor(Color.RED);
-        graphics.fillRect(x, y, width, height);
+        if(!not_visible) {
+            graphics.setColor(Color.RED);
+            graphics.drawRect(x, y, width, height);
+        }
     }
 
 

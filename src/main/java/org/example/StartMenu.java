@@ -9,7 +9,7 @@ public class StartMenu extends JPanel {
    public class Background extends JPanel {
         private final Image image;
         public Background(String imageName) {
-            this.image = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Images/"+ imageName +".png"))).getImage();
+            this.image = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Images/Backgrounds/"+ imageName +".png"))).getImage();
             this.setLayout(null);
         }
         public void paintComponent(Graphics g) {

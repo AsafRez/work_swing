@@ -21,20 +21,37 @@ public class Blocks extends JPanel {
                 blocks[i][j].setX(block_x);
                 block_x += BLOCK_WIDTH + 5;
                 blocks[i][j].setY(block_y);
+                blocks[i][j].setRect(block_x,block_y,BLOCK_WIDTH,BLOCK_HEIGHT);
+
             }
             block_x = x;
             block_y += BLOCK_HEIGHT + 5;
         }
 
     }
+    public int getRows(){
+        return blocks.length;
+    }
+    public Rectangle getRect(int i, int j){
+        return blocks[i][j].getRect();
+    }
+    public void setBlockVisible(int i, int j){
+        blocks[i][j].setVisible();
+    }
+    public int getColumns(){
+        return blocks[0].length;
+    }
+    public Block getBlock(int i, int j){
+        return blocks[i][j];
+    }
     public void paint(Graphics g) {
         for (int i = 0; i <blocks.length ; i++) {
             for (int j = 0; j <blocks[0].length; j++) {
-                if(!this.blocks[i][j].isDestroyed()) {
+                if(!this.blocks[i][j].isNot_visible()) {
                     this.blocks[i][j].paint(g);
                 }
             }
-
         }
+
     }}
 

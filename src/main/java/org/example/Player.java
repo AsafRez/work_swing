@@ -41,22 +41,19 @@ public class Player{
         return bar;
     }
 
-    public void setLocationY(int locationY) {
-        this.locationY = locationY;
-    }
     public void move_Left() {
         if (this.bar[0].getX() > 0) {
             this.locationX -= 5;
-            this.bar[0].setX(this.bar[0].getX() - 5);
-            this.bar[1].setX(this.bar[1].getX()-5);
-            this.bar[2].setX(this.bar[2].getX()-5);
+            this.bar[0].setX(this.bar[0].getX() - 20);
+            this.bar[1].setX(this.bar[1].getX()-20);
+            this.bar[2].setX(this.bar[2].getX()-20);
         }
     }
     public void move_Right(){
         if(this.bar[2].getX()<MainGameView.WIDTH-PLAYER_WIDTH) {
-            this.bar[0].setX(this.bar[0].getX() + 5);
-            this.bar[1].setX(this.bar[1].getX()+5);
-            this.bar[2].setX(this.bar[2].getX()+5);
+            this.bar[0].setX(this.bar[0].getX() + 20);
+            this.bar[1].setX(this.bar[1].getX()+20);
+            this.bar[2].setX(this.bar[2].getX()+20);
         }
     }
     public Boolean isAlive(){
