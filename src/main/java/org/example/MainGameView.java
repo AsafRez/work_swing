@@ -10,7 +10,6 @@ import java.io.IOException;
 
 public class MainGameView extends JPanel {
     public static String USER_NAME = "";
-    public static StartMenu.Background game_background;
     private JLabel statusLabel;
     private Player player;
     private Ball ball;
@@ -29,7 +28,7 @@ public class MainGameView extends JPanel {
     }
 
     public MainGameView(int x, int y, int width, int height) {
-        this.blockss = new Blocks((width-((Blocks.BLOCK_WIDTH+5)*(width/(Blocks.BLOCK_WIDTH+5))))/2, height / 6, width, height / 6);
+        this.blockss = new Blocks((width-((Blocks.BLOCK_WIDTH+5)*((width/StartMenu.BLOCKS_LEVEL)/(Blocks.BLOCK_WIDTH+5))))/2, height / 6, width/StartMenu.BLOCKS_LEVEL, height / 6);
         this.WIDTH = width;
         this.HEIGHT = height;
         this.setLayout(null);

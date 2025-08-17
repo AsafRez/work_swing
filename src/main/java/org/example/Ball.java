@@ -21,7 +21,7 @@ public class Ball{
         this.size = BALL_SIZE;
         this.locationX = locationX;
         this.locationY = locationY;
-        this.image = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Images/Balls/Basic_Ball.png"))).getImage();
+        this.image = ImageEditor.image_BA;
         this.rect_ball = new Rectangle(locationX, locationY, 10, 10);
     }
 

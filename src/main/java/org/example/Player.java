@@ -60,7 +60,7 @@ public class Player{
         return isAlive;
     }
     public void paint (Graphics graphics){
-        Image image=new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/bar.png"))).getImage();
+        Image image=ImageEditor.image_P;
 
         graphics.drawImage(image,bar[0].getX(),bar[0].getY(),PLAYER_WIDTH*3,PLAYER_HEIGHT,null);
 

@@ -52,7 +52,7 @@ public class Block {
     }
     public void paint (Graphics graphics){
         if(!not_visible) {
-            graphics.drawImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/block.png"))).getImage(), x, y,Blocks.BLOCK_WIDTH,Blocks.BLOCK_HEIGHT, null);
+            graphics.drawImage(ImageEditor.image_B, x, y,Blocks.BLOCK_WIDTH,Blocks.BLOCK_HEIGHT, null);
         }
     }
 

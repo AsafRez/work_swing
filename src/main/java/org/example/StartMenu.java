@@ -6,7 +6,9 @@ import java.awt.*;
 import java.util.Objects;
 
 public class StartMenu extends JPanel {
-   public class Background extends JPanel {
+    public static int BLOCKS_LEVEL =0;
+
+    public class Background extends JPanel {
         private final Image image;
         public Background(String imageName) {
             this.image = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Images/Backgrounds/"+ imageName +".png"))).getImage();
@@ -37,27 +39,43 @@ public class StartMenu extends JPanel {
         JLabel enter_Uname=create_Label(width/5+70,height/3,650,45,"Enter your name",font);
         enter_Uname.setForeground(Color.WHITE);
         this.add(user_name);
-        this.setVisible(true);
-        this.repaint();
+
+
+        JComboBox<String> level_diff=create_JComb(0,0,150,40,new String[]{"Easy","Medium","Hard"});
+        JComboBox<String> bars =create_JComb(0,40,150,40, new String[]{ "blue", "green", "pink" });
+        JComboBox<String> blocks =create_JComb(0,80,150,40, new String[]{ "blue", "orange", "purple" });
+        JComboBox<String> balls =create_JComb(0,120,150,40, new String[]{ "Basic", "Basketball", "Football","Tennis" });
+
+
         exit_button.addActionListener((event)->{
             System.exit(0);
 
         });
         start_button.addActionListener((event)->{
             MainGameView.USER_NAME=user_name.getText();
-            MainGameView.game_background=image_Background;
+            String level=(String) level_diff.getSelectedItem();
+            String selected=level.toUpperCase();
+            LevelDifficulty chosen_diff=LevelDifficulty.valueOf(selected);
+            chosen_diff.set_difficulty();
+            ImageEditor.ImageEditorPlayer((String)bars.getSelectedItem());
+            ImageEditor.ImageEditorBall((String)balls.getSelectedItem());
+            ImageEditor.ImageEditorBlocks((String)blocks.getSelectedItem());
             Main.start_Game();
             manger.stop_music();
 
         });
         this.add(image_Background);
+        this.setVisible(true);
+        this.repaint();
 
     }
-
-    public Background getImage_Background() {
-        return image_Background;
+    private JComboBox<String> create_JComb(int x,int y,int width,int height,String[] text) {
+        JComboBox<String> temp=new JComboBox(text);
+        temp.setBounds(x,y,width,height);
+        temp.setFont(new Font("Ariel",Font.BOLD,20));
+        this.add(temp);
+        return temp;
     }
-
 //    private JLabel create_image(int x, int y, int width, int height, String name) {
 //        try {
 //            // טוען את התמונה כמשאב מתוך תיקיית images שב-classpath
