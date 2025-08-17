@@ -58,21 +58,21 @@ public class StartMenu extends JPanel {
         return image_Background;
     }
 
-    private JLabel create_image(int x, int y, int width, int height, String name) {
-        try {
-            // טוען את התמונה כמשאב מתוך תיקיית images שב-classpath
-            // שים לב לנתיב שמתחיל ב- `/`
-            ImageIcon imageIcon = new ImageIcon(getClass().getResource("/images/"+name+".png"));
-            JLabel imageLabel = new JLabel(imageIcon);
-            imageLabel.setBounds(x,y,width,height);
-            this.add(imageLabel);
-            return imageLabel;
-            // מוסיף את ה-JLabel ל-JPanel הנוכחי
-        } catch (NullPointerException e) {
-            System.err.println("שגיאה: התמונה לא נמצאה. ודא שהנתיב נכון.");
-            return null;
-        }
-    }
+//    private JLabel create_image(int x, int y, int width, int height, String name) {
+//        try {
+//            // טוען את התמונה כמשאב מתוך תיקיית images שב-classpath
+//            // שים לב לנתיב שמתחיל ב- `/`
+//            ImageIcon imageIcon = new ImageIcon(getClass().getResource("/images/"+name+".png"));
+//            JLabel imageLabel = new JLabel(imageIcon);
+//            imageLabel.setBounds(x,y,width,height);
+//            this.add(imageLabel);
+//            return imageLabel;
+//            // מוסיף את ה-JLabel ל-JPanel הנוכחי
+//        } catch (NullPointerException e) {
+//            System.err.println("שגיאה: התמונה לא נמצאה. ודא שהנתיב נכון.");
+//            return null;
+//        }
+//    }
     private JButton create_Button(int x,int y,int width,int height,String text) {
         JButton startButton = new JButton(text);
         startButton.setBounds(x, y, width, height);

@@ -5,7 +5,7 @@ import java.awt.*;
 import java.util.Objects;
 
 public class Ball{
-    public static final int BALL_SIZE = Main.SCREEN_WIDTH / 60;
+    public static final int BALL_SIZE = Main.SCREEN_WIDTH / 65;
 
     private int size;
     private int locationX;
@@ -70,7 +70,6 @@ public class Ball{
 
     public void paint(Graphics graphics) {
         graphics.drawImage(this.getImage(), this.locationX, this.locationY, BALL_SIZE, BALL_SIZE, null);
-        graphics.drawRect(this.locationX, this.locationY, BALL_SIZE, BALL_SIZE);
 
     }
 }

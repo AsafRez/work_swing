@@ -8,7 +8,6 @@ public class Blocks extends JPanel {
     public static final int BLOCK_WIDTH=Main.SCREEN_WIDTH/30;
     public static final int BLOCK_HEIGHT=Main.SCREEN_HEIGHT/50;
     public Blocks(int x,int y, int width, int height) {
-
         //פעולה שמוצאת את הכדור ביחס לבלוקים
         this.blocks = new Block[height/(BLOCK_HEIGHT+5)][width/(BLOCK_WIDTH+5)];
         int block_x=x;
@@ -52,6 +51,6 @@ public class Blocks extends JPanel {
                 }
             }
         }
-
-    }}
+    }
+}
 
