@@ -48,7 +48,6 @@ public class Main {
         c_window.setResizable(false);
         c_window.setLayout(null);
         c_window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        System.out.println(c_window.getHeight());
         MainGameView the_game = new MainGameView(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         c_window.add(the_game);
         c_window.setVisible(true);

@@ -11,6 +11,7 @@ import java.io.IOException;
 
 public class MainGameView extends JPanel {
     public static String USER_NAME = "";
+    public static int points_per_block;
     private JLabel statusLabel;
     private final Player player;
     private final Ball ball;
@@ -158,12 +159,11 @@ public class MainGameView extends JPanel {
         }catch (IOException e){
             System.out.println("בעיה בשמירת נתונים");
         }
-        JButton backToMenu = new JButton("Back To Menue");
+        JButton backToMenu = new JButton("Back To Menu");
         this.add(backToMenu);
         backToMenu.setBounds(0,0,200,30);
         backToMenu.setHorizontalAlignment(SwingConstants.CENTER);
         backToMenu.setFont(new Font("Ariel",Font.BOLD,10));
-        backToMenu.setBackground(Color.green);
         backToMenu.addActionListener((ActionEvent) ->{
             JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
             if (topFrame != null) {
@@ -195,7 +195,7 @@ private void game_Loop(){
         this.requestFocus();
         this.addKeyListener(new MovementListener(this));
         while (true) {
-            if(score/10==blocks_enemy.getRows()*blocks_enemy.getColumns()){
+            if(score/points_per_block==blocks_enemy.getRows()*blocks_enemy.getColumns()){
                 end_game("Win");
             }
             if (!pause&&!end) {
@@ -247,7 +247,6 @@ public void paint(Graphics g){
             move_X();
 
         }else if(ball.getLocationY()>HEIGHT){
-            System.out.println("Lost");
             end_game("Lost");
         }
     }

@@ -7,6 +7,7 @@ public enum LevelDifficulty {
                 void set_difficulty() {
                     StartMenu.BLOCKS_LEVEL=5;
                     Ball.X_MOVEMENT=2;
+                    MainGameView.points_per_block=10;
                 }
             },MEDIUM
             {
@@ -14,6 +15,8 @@ public enum LevelDifficulty {
                 void set_difficulty() {
                     StartMenu.BLOCKS_LEVEL=3;
                     Ball.X_MOVEMENT=4;
+                    MainGameView.points_per_block=20;
+
                 }
 
             },HARD{
@@ -21,6 +24,8 @@ public enum LevelDifficulty {
         void set_difficulty() {
             StartMenu.BLOCKS_LEVEL=1;
             Ball.X_MOVEMENT=6;
+            MainGameView.points_per_block=30;
+
         }
 
     };

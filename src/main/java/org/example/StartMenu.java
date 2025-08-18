@@ -2,6 +2,10 @@ package org.example;
 
 
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Objects;
@@ -69,7 +73,7 @@ public class StartMenu extends JPanel {
         JButton exit_button=this.create_Button((int)((Main.MENU_WIDTH/2)-200),350,100,30,"Exit");
 
         //השתקת סאונד
-        JButton sound_button = this.create_Button(5,5,80,30,"Music");
+        JButton sound_button = this.create_Button(5,5,70,30,"Music");
         sound_button.setFont(new Font("Ariel",Font.BOLD,10));
         sound_button.setBackground(Color.green);
         sound_button.addActionListener((ActionEvent) ->{
@@ -83,7 +87,6 @@ public class StartMenu extends JPanel {
 
         exit_button.addActionListener((event)->{
             System.exit(0);
-
         });
         //פעולת התחלת משחק
         start_button.addActionListener((event)->{
@@ -91,28 +94,80 @@ public class StartMenu extends JPanel {
             String bar_selected=(String) barsSelector.getSelectedItem();
             String block_selected=(String) blocksSelector.getSelectedItem();
             String ball_selected=(String) ballsSelector.getSelectedItem();
-//            if(!manger.clip_is_runnig()){
-//                manger.switch_status();
-//            }
             start_Game(user_name.getText(),level,bar_selected,block_selected,ball_selected,manger);
         });
         this.add(image_Background);
         this.setVisible(true);
         this.repaint();
 
+        JPanel instructions_Panel = new JPanel();
+            instructions_Panel.setBackground(Color.black);
+            instructions_Panel.setBounds(0,0,width,height);
+            instructions_Panel.setLayout(null);
+            instructions_Panel.setVisible(true);
         // חלון הוראות
-//        instructions.addActionListener((event)->{
-//            JPanel instructions_Panel = new JPanel();
-//            instructions_Panel.setBackground(Color.white);
-//            instructions_Panel.setBounds(0,0,WIDTH,HEIGHT);
-//            instructions_Panel.setLayout(null);
-//            instructions_Panel.setVisible(true);
-//            this.add(instructions_Panel);
-//            this.setComponentZOrder(instructions_Panel,0);
-//            this.revalidate();
-//            this.repaint();
-//        });
+        instructions.addActionListener((event)->{
+            this.remove(getComponents());
+            instructions_Panel.setVisible(false);
+            this.setLayout(null);
+            JTextArea textPane = new JTextArea();
+            textPane.setBounds(80,0,width-100,height);
+            textPane.setText( "הוראות משחק – Blocks Bomber\n\n" +
+                    "• תנועה: חיצים (← →) או A / D\n" +
+                    "• עצירת המשחק להפסקה: Escape\n" +
+                    "• מטרה: לשבור את כל הבלוקים עם הכדור\n" +
+                    "• ניקוד: קל +10, בינוני +20, קשה +30\n" +
+                    "• ניצחון: ניקוי כל הבלוקים\n" +
+                    "• הפסד: אם הכדור נופל מתחת למסך\n\n" +
+                    "טיפים:\n" +
+                    "• פגיעה בקצות ה-Bar משנה את זווית הכדור\n" +
+                    "• בשלבים מסוימים המהירות עולה\n"
+            );
+            textPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+            textPane.setEditable(false);
+            textPane.setFont(new Font("Ariel",Font.BOLD,15));
+            textPane.setForeground(Color.WHITE);
+            textPane.setBackground(Color.BLACK);
+            instructions_Panel.add(textPane);
+            instructions_Panel.setVisible(true);
+            instructions_Panel.repaint();
+            instructions_Panel.revalidate();
+            JButton backToMenu = new JButton("Back To Menu");
+            //לשנות את המספרים למשתנים למצוא דרך
+            //להכניס את כל הקוד פה לפונקציה ככה שהיהי יותר יעיל
+            backToMenu.setBounds(250,300,200,30);
+            backToMenu.setHorizontalAlignment(SwingConstants.CENTER);
+            backToMenu.setFont(new Font("Ariel",Font.BOLD,10));
+            backToMenu.addActionListener((ActionEvent) ->{
+                JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+                if (topFrame != null) {
+                    topFrame.dispose(); // סוגר את חלון המשחק
+                }
+                Main.open_Menu(); // פותח את חלון התפריט
+            });
+            Component[] compto_current=new Component[]{
+                    sound_button,backToMenu,instructions_Panel
+            };
+            addto_JPanel(this,compto_current);
+        });
     }
+    private void addto_JPanel(JPanel panel,Component[] component){
+        for(int i=0;i<component.length;i++){
+            panel.add(component[i]);
+        }
+        panel.setVisible(true);
+        panel.repaint();
+        panel.revalidate();
+    }
+
+    private void remove(Component[] components) {
+        int i=0;
+        while(i!=components.length){
+            this.remove(components[i]);
+            i++;
+        }
+    }
+
     //פונקציית התחלת משחק
     private void start_Game(String player_name,String level,String bar,String block,String ball,SoundManager player) {
         MainGameView.USER_NAME=player_name;

@@ -15,9 +15,9 @@ public class MovementListener implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+        if (e.getKeyCode() == KeyEvent.VK_LEFT|| e.getKeyCode() == KeyEvent.VK_A) {
             this.mainGameView.getPlayer().move_Left();
-        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT|| e.getKeyCode() == KeyEvent.VK_D) {
             this.mainGameView.getPlayer().move_Right();
         } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             MainGameView mainGameView = this.mainGameView;
