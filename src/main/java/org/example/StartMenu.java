@@ -48,16 +48,16 @@ public class StartMenu extends JPanel {
 
         //יצירת 4 רשימות נגללות לבחירת מצבי משחק
         Font choice=new Font("Ariel",Font.BOLD,20);
-        JLabel choose_level=create_Label(Main.MENU_WIDTH/2-200,150,165,30,"Choose Difficulty",choice);
+        JLabel choose_level=create_Label(Main.MENU_WIDTH/2-200,150,200,30,"Choose Difficulty",choice);
         choose_level.setForeground(Color.WHITE);
         JComboBox<String> levelsSelector =create_JComb(Main.MENU_WIDTH/2,150,165,30,new String[]{"Easy","Medium","Hard"});
-        JLabel choose_bars=create_Label(Main.MENU_WIDTH/2 -200,200,165,30,"Choose Player",choice);
+        JLabel choose_bars=create_Label(Main.MENU_WIDTH/2 -200,200,200,30,"Choose Player",choice);
         JComboBox<String> barsSelector =create_JComb(Main.MENU_WIDTH/2,200,165,30, new String[]{ "blue", "green", "pink" });
         choose_bars.setForeground(Color.WHITE);
-        JLabel choose_blocks=create_Label(Main.MENU_WIDTH/2 -200,250,165,30,"Choose Blocks",choice);
+        JLabel choose_blocks=create_Label(Main.MENU_WIDTH/2 -200,250,200,30,"Choose Blocks",choice);
         JComboBox<String> blocksSelector =create_JComb(Main.MENU_WIDTH/2,250,165,30, new String[]{ "blue", "orange", "purple" });
         choose_blocks.setForeground(Color.WHITE);
-        JLabel choose_balls=create_Label(Main.MENU_WIDTH/2 -200,300,165,30,"Choose Ball",choice);
+        JLabel choose_balls=create_Label(Main.MENU_WIDTH/2 -200,300,200,30,"Choose Ball",choice);
         JComboBox<String> ballsSelector =create_JComb(Main.MENU_WIDTH/2,300,165,30, new String[]{ "Basic", "Basketball", "Football","Tennis" });
         choose_balls.setForeground(Color.WHITE);
 
