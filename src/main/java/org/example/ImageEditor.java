@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 
+//מחלקה האחראית על החזרת אובייקטים של תמנות למשתמש
 public abstract class ImageEditor {
     public static Image image_P;
     public static Image image_B;

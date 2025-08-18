@@ -11,45 +11,57 @@ import java.io.IOException;
 public class MainGameView extends JPanel {
     public static String USER_NAME = "";
     private JLabel statusLabel;
-    private Player player;
-    private Ball ball;
-    private Blocks blockss;
+    private final Player player;
+    private final Ball ball;
+    private final Blocks blocks_enemy;
     public static int WIDTH;
     public static int HEIGHT;
     public boolean pause = false;
     public boolean end = false;
-    private JLabel scoreLabel;
+    private final JLabel scoreLabel;
     private int score;
     private int highest_score=getHighestScore();
-    private JLabel highesLabel;
+    private final JLabel highesLabel;
 
     public Player getPlayer() {
         return player;
     }
 
+    //יצירת חלון המשחק
     public MainGameView(int x, int y, int width, int height) {
-        this.blockss = new Blocks((width-((Blocks.BLOCK_WIDTH+5)*((width/StartMenu.BLOCKS_LEVEL)/(Blocks.BLOCK_WIDTH+5))))/2, height / 6, width/StartMenu.BLOCKS_LEVEL, height / 6);
-        this.WIDTH = width;
-        this.HEIGHT = height;
+        //יצירת אובייקטים הבלוקים
+        this.blocks_enemy = new Blocks((width-((Blocks.BLOCK_WIDTH+5)*((width/StartMenu.BLOCKS_LEVEL)/(Blocks.BLOCK_WIDTH+5))))/2, height / 6, width/StartMenu.BLOCKS_LEVEL, height / 6);
+        WIDTH = width;
+        HEIGHT = height;
         this.setLayout(null);
         this.setBackground(Color.black);
         this.setBounds(x, y, width, (height));
         this.setVisible(true);
+
+        //הוספת טקסט ניקוד הכי גבוה
         this.highesLabel = new JLabel("Highest Score: " + highest_score);
         this.highesLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         this.highesLabel.setForeground(Color.white);
         this.highesLabel.setBounds(width/2 ,40,200,40);
         this.add(highesLabel);
+
+        //הוספת האובייקטים למשחק
         this.player = new Player(width / 2, height - 200);
         this.ball = new Ball(width / 2, height - 400);
+
+        //הוספת טקסט ניקוד נוכחי
         this.scoreLabel = new JLabel();
         this.scoreLabel.setForeground(Color.WHITE);
         this.scoreLabel.setFont(new Font("Arial", Font.BOLD, 20));
         this.scoreLabel.setBounds(width/2,10,200,40);
         this.add(this.scoreLabel);
-        this.game_Loop();
+        this.statusLabel = new JLabel();
+
+        //התחלת לולאת המשחק
+        game_Loop();
     }
 
+    //בדיקת חלק התנגשות של הכדור עם הbar, אמצע ימן או שמאל
     private void check_CollisionPart(boolean left, boolean middle, boolean right) {
         if (left) {
             CollisionPart.LEFT.move_ball();
@@ -59,7 +71,7 @@ public class MainGameView extends JPanel {
             CollisionPart.RIGHT.move_ball();
         }
     }
-
+    //בדיקת התנגשות עם הbar
     private void check_Collision(Ball ball) {
         Rectangle ballRect = new Rectangle(ball.getLocationX(), ball.getLocationY(), Ball.BALL_SIZE, Ball.BALL_SIZE);
         Rectangle playerRect_Left = new Rectangle(this.player.getBar()[0].getX(), this.player.getBar()[0].getY(), Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
@@ -67,36 +79,36 @@ public class MainGameView extends JPanel {
         Rectangle playerRect_Right = new Rectangle(this.player.getBar()[2].getX(), this.player.getBar()[2].getY(), Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
         check_CollisionPart(ballRect.intersects(playerRect_Left), ballRect.intersects(playerRect_Middle), ballRect.intersects(playerRect_Right));
     }
-
+    //בדיקת התנגשות עם הבלוקים
     private void check_Collision_with_blocks(Ball ball) {
-        Rectangle ballRect = new Rectangle(ball.getLocationX()+Ball.BALL_SIZE/2, ball.getLocationY()+Ball.BALL_SIZE/2, 1, 1);
-            for (int i = 0; i <this.blockss.getRows(); i++) {
-                    for (int j = 0; j <this.blockss.getColumns() ; j++) {
-                        Rectangle block_recta=this.blockss.getRect(i,j);
-                        Block current_block=blockss.getBlock(i,j);
-                     if(ballRect.intersects(block_recta) && !current_block.isNot_visible()){
+        Rectangle ballRect = new Rectangle(ball.getLocationX()+Ball.BALL_SIZE/2, ball.getLocationY()+Ball.BALL_SIZE/2, Ball.BALL_SIZE, Ball.BALL_SIZE);
+            for (int i = 0; i <this.blocks_enemy.getRows(); i++) {
+                    for (int j = 0; j <this.blocks_enemy.getColumns() ; j++) {
+                        Rectangle block_rec =this.blocks_enemy.getRect(i,j);
+                        Block current_block= blocks_enemy.getBlock(i,j);
+                     if(ballRect.intersects(block_rec) && !current_block.isNot_visible()){
                          score+=10;
-                         int overlapLeft   = ballRect.x + ballRect.width  - block_recta.x;
-                         int overlapRight  = block_recta.x + block_recta.width  - ballRect.x;
-                         int overlapTop    = ballRect.y + ballRect.height - block_recta.y;
-                         int overlapBottom = block_recta.y + block_recta.height - ballRect.y;
+                         //בדיקת מיקום התנגשות
+                         int overlapLeft   = ballRect.x + ballRect.width  - block_rec.x;
+                         int overlapRight  = block_rec.x + block_rec.width  - ballRect.x;
+                         int overlapTop    = ballRect.y + ballRect.height - block_rec.y;
+                         int overlapBottom = block_rec.y + block_rec.height - ballRect.y;
                          int minOverlap = Math.min(Math.min(overlapLeft, overlapRight),
                                  Math.min(overlapTop, overlapBottom));
                          if (minOverlap == overlapLeft||minOverlap == overlapRight) {
                              Ball.X_MOVEMENT*=-1;
-                             System.out.println("פגיעה מהצד השמאלי או מצד ימני לא אכפת לי איפה");
 
                          }
                          if (minOverlap == overlapTop||minOverlap == overlapBottom) {
                              Ball.Y_MOVEMENT*=-1;
-                             System.out.println("פגיעה מלמעלה או מלמטה לא משנה לי");
                          }
-                    blockss.setBlockVisible(i,j);
+                    blocks_enemy.setBlockVisible(i,j);
                     repaint();
                 }
             }
         }
     }
+    //השגת ציון הגבוה ביותר מקובץ חיצוני
     private int getHighestScore() {
         String line= "";
         try {
@@ -110,29 +122,47 @@ public class MainGameView extends JPanel {
             }
             String[] parts = line.split("\\|"); // מפריד לפי הסימן
             highest_score = Integer.parseInt(parts[1].trim());
-        } catch (IOException e) {
+        } catch (IOException _) {
         }
         return highest_score;
     }
-    //נהפוך אץ הפונקציה  הזאת שתקבל קלט והקלט הוא או שאתה מצנח או שאתה מפסיד
-    //לעשות פונקצייה שאחר ישמנצחים מחזירה למסך ראשי גם קורה כאשר מפסידים
-    //לעשות counter ששסופר את הבלוקים שנתפסו ואז בודקים אם זה בגודל המערך
-    private void end_game(){
+    private void end_game(String status){
         end=true;
         try {
             FileWriter write_scores = new FileWriter("Score_Board");
             write_scores.write(USER_NAME + "|" + score + "\n");
             write_scores.close();
+            if(status.equals("Lost")){
+                edit_status_label("Lost");
+            }else {edit_status_label("Win");}
         }catch (IOException e){
             System.out.println("בעיה בשמירת נתונים");
         }
     }
+
+    //עדכון סטוטס משחק בהתאם למצב
+    private void edit_status_label(String status){
+        if(statusLabel ==null) {
+            statusLabel = new JLabel(status);
+            statusLabel.setForeground(Color.YELLOW);
+            Font font = new Font("Ariel", Font.BOLD, 150);
+            statusLabel.setFont(font);
+            statusLabel.setBounds(WIDTH/2, HEIGHT/2, WIDTH/2, 200);
+            revalidate();
+            this.add(statusLabel);
+            repaint();
+        }
+    }
+    //פעולת המשחק עצמה, לולאה שמזיזה שחקן וכדור
 private void game_Loop(){
     new Thread(()-> {
         this.setFocusable(true);
         this.requestFocus();
         this.addKeyListener(new MovementListener(this));
         while (true) {
+            if(score/10==blocks_enemy.getRows()*blocks_enemy.getColumns()){
+                end_game("Win");
+            }
             if (!pause&&!end) {
                 if(statusLabel !=null){
                     remove(statusLabel);
@@ -154,51 +184,44 @@ private void game_Loop(){
             }
             try {
                 Thread.sleep(1000 / 60); // בערך 60FPS
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            } catch (InterruptedException _) {
             }
         }
                 }).start();
 }
 
+    //פעולת הפסקת המשחק חלקית לקחת הפסקה
     public void pause_Game(){
         pause=!pause;
-        if(statusLabel ==null) {
-            statusLabel = new JLabel("Pause");
-            statusLabel.setForeground(Color.YELLOW);
-            Font font = new Font("Ariel", Font.BOLD, 35);
-            statusLabel.setFont(font);
-            statusLabel.setBounds(0, 0, 400, 40);
-            revalidate();
-            this.add(statusLabel);
-            repaint();
+        edit_status_label("Pause");
         }
-}
+
 public void paint(Graphics g){
     super.paint(g);
     this.player.paint(g);
-    this.blockss.paint(g);
+    this.blocks_enemy.paint(g);
     if(ball!=null) {
         this.ball.paint(g);
     }
 }
+    //פעולת בדיקת מיקום הכדור לגבי גבולות המסך
     private void check_Ball_Bounds(){
         if(ball.getLocationY()<=0){
-            move_Y("Ball_Hitting_Block.wav");
+            move_Y();
         }else if(ball.getLocationX()<=0||ball.getLocationX()>WIDTH-Ball.BALL_SIZE){
-            move_X("Ball_Hitting_Block.wav");
+            move_X();
 
         }else if(ball.getLocationY()>HEIGHT){
             System.out.println("Lost");
-            end_game();
+            end_game("Lost");
         }
     }
-private void move_Y(String message){
+private void move_Y(){
     Ball.Y_MOVEMENT = (Ball.Y_MOVEMENT*-1);
-    new SoundManager(message);
+    new SoundManager("Ball_Hitting_Block.wav");
 }
-    private void move_X(String message){
+    private void move_X(){
         Ball.X_MOVEMENT = (Ball.X_MOVEMENT*-1);
-        new SoundManager(message);
+        new SoundManager("Ball_Hitting_Block.wav");
     }
 }

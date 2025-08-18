@@ -1,16 +1,13 @@
 package org.example;
 
-import javax.swing.*;
 import java.awt.*;
-import java.util.Objects;
 
+//מחלקת כדור האחראית על יצירת אובייקט מסוג כדור שפוגע בבלוקים
 public class Ball{
     public static final int BALL_SIZE = Main.SCREEN_WIDTH / 65;
 
-    private int size;
     private int locationX;
     private int locationY;
-    private Boolean isAlive = true;
     private Image image;
     public static int Y_MOVEMENT=-2;
     public static int X_MOVEMENT=2;
@@ -18,16 +15,12 @@ public class Ball{
 
 
     public Ball(int locationX, int locationY) {
-        this.size = BALL_SIZE;
         this.locationX = locationX;
         this.locationY = locationY;
         this.image = ImageEditor.image_BA;
         this.rect_ball = new Rectangle(locationX, locationY, 10, 10);
     }
 
-    public Rectangle getRect_ball() {
-        return rect_ball;
-    }
     public int getLocationX() {
         return locationX;
     }
@@ -40,23 +33,8 @@ public class Ball{
     public int getLocationY() {
         return locationY;
     }
-
-    public void setLocationY(int locationY) {
-        this.locationY = locationY;
-        this.rect_ball.setLocation(locationX, locationY);
-
-    }
-
     public Image getImage() {
         return image;
-    }
-
-    public void setImage(String path) {
-        this.image = image;
-    }
-
-    public Boolean isAlive() {
-        return isAlive;
     }
 
     public void move_X() {
@@ -67,7 +45,6 @@ public class Ball{
         this.locationY-=Y_MOVEMENT;
 
     }
-
     public void paint(Graphics graphics) {
         graphics.drawImage(this.getImage(), this.locationX, this.locationY, BALL_SIZE, BALL_SIZE, null);
 

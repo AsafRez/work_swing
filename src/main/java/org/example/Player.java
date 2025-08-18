@@ -1,16 +1,12 @@
 package org.example;
 
-import javax.swing.*;
 import java.awt.*;
-import java.util.Objects;
 
 public class Player{
 
-    private int size;
     private Block[] bar;
     private int locationX;
     private int locationY;
-    private Boolean isAlive = true;
     public static final int PLAYER_WIDTH =Main.SCREEN_WIDTH/30 ;
     public static final int PLAYER_HEIGHT= Main.SCREEN_HEIGHT/45 ;
     public Player (int locationX, int locationY) {
@@ -43,7 +39,6 @@ public class Player{
 
     public void move_Left() {
         if (this.bar[0].getX() > 0) {
-            this.locationX -= 5;
             this.bar[0].setX(this.bar[0].getX() - 30);
             this.bar[1].setX(this.bar[1].getX()-30);
             this.bar[2].setX(this.bar[2].getX()-30);
@@ -55,9 +50,6 @@ public class Player{
             this.bar[1].setX(this.bar[1].getX()+30);
             this.bar[2].setX(this.bar[2].getX()+30);
         }
-    }
-    public Boolean isAlive(){
-        return isAlive;
     }
     public void paint (Graphics graphics){
         Image image=ImageEditor.image_P;

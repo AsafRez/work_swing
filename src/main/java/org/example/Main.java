@@ -17,6 +17,7 @@ public class Main {
         c_window.setVisible(true);
 
     }
+        //יצירת מסך חדש המביא את מסך ראשי
     private static JFrame create_Menu_Window() {
         JFrame frame = new JFrame();
         frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -28,7 +29,7 @@ public class Main {
         frame.add(main_menu);
         return frame;
     }
-
+    //יצירת מסך חדש המעביר למשחק עצמו
     public static void start_Game() {
         if(c_window != null) {
             c_window.dispose();
@@ -44,5 +45,4 @@ public class Main {
         c_window.add(the_game);
         c_window.setVisible(true);
     }
-
-    }
+}
