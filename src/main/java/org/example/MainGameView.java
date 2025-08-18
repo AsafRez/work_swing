@@ -110,7 +110,7 @@ public class MainGameView extends JPanel {
     }
     //השגת ציון הגבוה ביותר מקובץ חיצוני
     private int getHighestScore() {
-        String line= "";
+        String line;
         try {
             FileReader read_score = new FileReader("Score_Board");
             BufferedReader br = new BufferedReader(read_score);
