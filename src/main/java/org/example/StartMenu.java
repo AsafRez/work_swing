@@ -91,6 +91,9 @@ public class StartMenu extends JPanel {
             String bar_selected=(String) barsSelector.getSelectedItem();
             String block_selected=(String) blocksSelector.getSelectedItem();
             String ball_selected=(String) ballsSelector.getSelectedItem();
+            if(!manger.clip_is_runnig()){
+                manger.switch_status();
+            }
             start_Game(user_name.getText(),level,bar_selected,block_selected,ball_selected,manger);
         });
         this.add(image_Background);

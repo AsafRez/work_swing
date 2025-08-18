@@ -64,6 +64,7 @@ public class MainGameView extends JPanel {
         this.add(sound_button);
         sound_button.setBounds(0,0,80,30);
         sound_button.setFont(new Font("Ariel",Font.BOLD,10));
+        sound_button.setBackground(Color.green);
         sound_button.addActionListener((ActionEvent) ->{
             sound.switch_status();
             if (sound.clip_is_runnig()) {
@@ -97,7 +98,7 @@ public class MainGameView extends JPanel {
     }
     //בדיקת התנגשות עם הבלוקים
     private void check_Collision_with_blocks(Ball ball) {
-        Rectangle ballRect = new Rectangle(ball.getLocationX()+Ball.BALL_SIZE/2, ball.getLocationY()+Ball.BALL_SIZE/2, Ball.BALL_SIZE, Ball.BALL_SIZE);
+        Rectangle ballRect = new Rectangle(ball.getLocationX(), ball.getLocationY(), Ball.BALL_SIZE, Ball.BALL_SIZE);
             for (int i = 0; i <this.blocks_enemy.getRows(); i++) {
                     for (int j = 0; j <this.blocks_enemy.getColumns() ; j++) {
                         Rectangle block_rec =this.blocks_enemy.getRect(i,j);

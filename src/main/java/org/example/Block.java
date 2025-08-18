@@ -15,7 +15,7 @@ public class Block {
         this.not_visible = false;
     }
     public void setRect(int rect_x, int rect_y, int rect_width, int rect_height) {
-        this.block_rect = new Rectangle(rect_x-Blocks.BLOCK_WIDTH/2, rect_y-Blocks.BLOCK_HEIGHT/2, rect_width, rect_height);
+        this.block_rect = new Rectangle(rect_x, rect_y, rect_width, rect_height);
     }
     public Rectangle getRect() {
         return this.block_rect;
