@@ -33,36 +33,38 @@ public class StartMenu extends JPanel {
         //יצירת אובייקט הפעיל מוזיקה
         SoundManager manger = new SoundManager("Main_page_music.wav");
 
-        Font font = new Font ("Ariel" , Font.BOLD, 20);
-        JLabel start_label=create_Label(width/2-100,0,650,45,"Blocks Bomber",font);
+        Font font = new Font ("Ariel" , Font.BOLD, 50);
+        JLabel start_label=create_Label(0,20,Main.MENU_WIDTH,45,"Blocks Bomber",font);
+        start_label.setHorizontalAlignment(SwingConstants.CENTER);
         start_label.setForeground(Color.WHITE);
         JTextField user_name=new JTextField(10);
-        user_name.setBounds(width/2-100,height/2,200, 30);
+        user_name.setBounds(Main.MENU_WIDTH/2,100,165, 30);
         user_name.setEditable(true);
-        user_name.setFont(font);
-        JLabel enter_Uname=create_Label(width/2-100,height/2-50,165,45,"Enter your name",font);
+        user_name.setFont(new Font("Ariel",Font.BOLD,15));
+        JLabel enter_Uname=create_Label(Main.MENU_WIDTH/2-200,100,165,30,"Enter your name", new Font("Ariel",Font.BOLD,20));
         enter_Uname.setForeground(Color.WHITE);
         this.add(user_name);
 
 
         //יצירת 4 רשימות נגללות לבחירת מצבי משחק
-        Font choice=new Font("Ariel",Font.BOLD,12);
-        JLabel choose_level=create_Label(width/2+200,height/2,120,40,"תבחר רמת משחק",choice);
+        Font choice=new Font("Ariel",Font.BOLD,20);
+        JLabel choose_level=create_Label(Main.MENU_WIDTH/2-200,150,165,30,"Choose Difficulty",choice);
         choose_level.setForeground(Color.WHITE);
-        JComboBox<String> levelsSelector =create_JComb(width/2+200,height/2+50,150,40,new String[]{"Easy","Medium","Hard"});
-        JLabel choose_bars=create_Label(width-100,0,120,40,"תבחר סוג שחקן",choice);
-        JComboBox<String> barsSelector =create_JComb(width-200,40,150,40, new String[]{ "blue", "green", "pink" });
+        JComboBox<String> levelsSelector =create_JComb(Main.MENU_WIDTH/2,150,165,30,new String[]{"Easy","Medium","Hard"});
+        JLabel choose_bars=create_Label(Main.MENU_WIDTH/2 -200,200,165,30,"Choose Player",choice);
+        JComboBox<String> barsSelector =create_JComb(Main.MENU_WIDTH/2,200,165,30, new String[]{ "blue", "green", "pink" });
         choose_bars.setForeground(Color.WHITE);
-        JLabel choose_blocks=create_Label(0,40,120,40,"תבחר סוג בלוקים",choice);
-        JComboBox<String> blocksSelector =create_JComb(0,80,150,40, new String[]{ "blue", "orange", "purple" });
+        JLabel choose_blocks=create_Label(Main.MENU_WIDTH/2 -200,250,165,30,"Choose Blocks",choice);
+        JComboBox<String> blocksSelector =create_JComb(Main.MENU_WIDTH/2,250,165,30, new String[]{ "blue", "orange", "purple" });
         choose_blocks.setForeground(Color.WHITE);
-        JLabel choose_balls=create_Label(0,height/2-40,120,40,"תבחר סוג כדור",choice);
-        JComboBox<String> ballsSelector =create_JComb(0,height/2,150,40, new String[]{ "Basic", "Basketball", "Football","Tennis" });
+        JLabel choose_balls=create_Label(Main.MENU_WIDTH/2 -200,300,165,30,"Choose Ball",choice);
+        JComboBox<String> ballsSelector =create_JComb(Main.MENU_WIDTH/2,300,165,30, new String[]{ "Basic", "Basketball", "Football","Tennis" });
         choose_balls.setForeground(Color.WHITE);
 
         //הגדרת פעולות לכפתורים פעולת יציאה ופעולת פתיחת חלונית המשחק
-        JButton start_button=this.create_Button((int)((width/2)),height/2+50,100,25,"Start");
-        JButton exit_button=this.create_Button((int)((width/4)),height/2+50,100,25,"Exit");
+        JButton start_button=this.create_Button((int)(Main.MENU_WIDTH/2 -200),350,100,30,"Start");
+        JButton instructions = this.create_Button((int)((Main.MENU_WIDTH/2)- 50),350,120,30,"Instructions");
+        JButton exit_button=this.create_Button((int)((Main.MENU_WIDTH/2)+100),350,100,30,"Exit");
 
         exit_button.addActionListener((event)->{
             System.exit(0);

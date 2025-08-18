@@ -6,8 +6,8 @@ import java.awt.*;
 
 public class Main {
 
-    public static final int WINDOW_WIDTH = 800;
-    public static final int WINDOW_HEIGHT = 480;
+    public static final int MENU_WIDTH = 800;
+    public static final int MENU_HEIGHT = 480;
     public static JFrame c_window;
     public static final int SCREEN_WIDTH= Toolkit.getDefaultToolkit().getScreenSize().width;
     public static final int SCREEN_HEIGHT= Toolkit.getDefaultToolkit().getScreenSize().height;
@@ -20,12 +20,12 @@ public class Main {
         //יצירת מסך חדש המביא את מסך ראשי
     private static JFrame create_Menu_Window() {
         JFrame frame = new JFrame();
-        frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        frame.setSize(MENU_WIDTH, MENU_HEIGHT);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
         frame.setLayout(null);
-        StartMenu main_menu = new StartMenu(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+        StartMenu main_menu = new StartMenu(0, 0, MENU_WIDTH, MENU_HEIGHT);
         frame.add(main_menu);
         return frame;
     }
