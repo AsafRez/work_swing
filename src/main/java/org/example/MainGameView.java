@@ -60,19 +60,19 @@ public class MainGameView extends JPanel {
         this.statusLabel = new JLabel();
 
         //השתקת סאונד
-        JButton sound_button = new JButton("Music");
-        this.add(sound_button);
-        sound_button.setBounds(0,0,80,30);
-        sound_button.setFont(new Font("Ariel",Font.BOLD,10));
-        sound_button.setBackground(Color.green);
-        sound_button.addActionListener((ActionEvent) ->{
-            sound.switch_status();
-            if (sound.clip_is_runnig()) {
-                sound_button.setBackground(Color.green);
-            }else{
-                sound_button.setBackground((Color.red));
-            }
-    });
+//        JButton sound_button = new JButton("Music");
+//        this.add(sound_button);
+//        sound_button.setBounds(0,0,80,30);
+//        sound_button.setFont(new Font("Ariel",Font.BOLD,10));
+//        sound_button.setBackground(Color.green);
+//        sound_button.addActionListener((ActionEvent) ->{
+//            sound.switch_status();
+//            if (sound.clip_is_runnig()) {
+//                sound_button.setBackground(Color.green);
+//            }else{
+//                sound_button.setBackground((Color.red));
+//            }
+//    });
 
         //התחלת לולאת המשחק
         game_Loop();
@@ -158,6 +158,20 @@ public class MainGameView extends JPanel {
         }catch (IOException e){
             System.out.println("בעיה בשמירת נתונים");
         }
+        JButton backToMenu = new JButton("Back To Menue");
+        this.add(backToMenu);
+        backToMenu.setBounds(0,0,200,30);
+        backToMenu.setHorizontalAlignment(SwingConstants.CENTER);
+        backToMenu.setFont(new Font("Ariel",Font.BOLD,10));
+        backToMenu.setBackground(Color.green);
+        backToMenu.addActionListener((ActionEvent) ->{
+            JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+            if (topFrame != null) {
+                topFrame.dispose(); // סוגר את חלון המשחק
+                sound.stop_music();
+            }
+            Main.open_Menu(); // פותח את חלון התפריט
+        });
     }
 
     //עדכון סטוטס משחק בהתאם למצב

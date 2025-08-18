@@ -29,6 +29,14 @@ public class Main {
         frame.add(main_menu);
         return frame;
     }
+
+    public static void open_Menu() { // פונק׳ פתיחת חלון התפריט
+        if (c_window != null) {
+            c_window.dispose();
+        }
+        c_window = create_Menu_Window();
+        c_window.setVisible(true);
+    }
     //יצירת מסך חדש המעביר למשחק עצמו
     public static void start_Game() {
         if(c_window != null) {

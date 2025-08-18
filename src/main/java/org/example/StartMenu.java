@@ -91,14 +91,27 @@ public class StartMenu extends JPanel {
             String bar_selected=(String) barsSelector.getSelectedItem();
             String block_selected=(String) blocksSelector.getSelectedItem();
             String ball_selected=(String) ballsSelector.getSelectedItem();
-            if(!manger.clip_is_runnig()){
-                manger.switch_status();
-            }
+//            if(!manger.clip_is_runnig()){
+//                manger.switch_status();
+//            }
             start_Game(user_name.getText(),level,bar_selected,block_selected,ball_selected,manger);
         });
         this.add(image_Background);
         this.setVisible(true);
         this.repaint();
+
+        // חלון הוראות
+//        instructions.addActionListener((event)->{
+//            JPanel instructions_Panel = new JPanel();
+//            instructions_Panel.setBackground(Color.white);
+//            instructions_Panel.setBounds(0,0,WIDTH,HEIGHT);
+//            instructions_Panel.setLayout(null);
+//            instructions_Panel.setVisible(true);
+//            this.add(instructions_Panel);
+//            this.setComponentZOrder(instructions_Panel,0);
+//            this.revalidate();
+//            this.repaint();
+//        });
     }
     //פונקציית התחלת משחק
     private void start_Game(String player_name,String level,String bar,String block,String ball,SoundManager player) {
