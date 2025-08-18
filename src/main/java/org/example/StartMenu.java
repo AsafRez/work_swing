@@ -41,7 +41,7 @@ public class StartMenu extends JPanel {
         user_name.setBounds(Main.MENU_WIDTH/2+50,100,165, 30);
         user_name.setEditable(true);
         user_name.setFont(new Font("Ariel",Font.BOLD,15));
-        JLabel enter_Uname=create_Label(Main.MENU_WIDTH/2-200,100,165,30,"Enter your name", new Font("Ariel",Font.BOLD,20));
+        JLabel enter_Uname=create_Label(Main.MENU_WIDTH/2-200,100,250,30,"Enter your name", new Font("Ariel",Font.BOLD,20));
         enter_Uname.setForeground(Color.WHITE);
         this.add(user_name);
 
