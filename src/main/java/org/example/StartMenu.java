@@ -143,6 +143,7 @@ public class StartMenu extends JPanel {
                 if (topFrame != null) {
                     topFrame.dispose(); // סוגר את חלון המשחק
                 }
+                manger.stop_music();
                 Main.open_Menu(); // פותח את חלון התפריט
             });
             Component[] compto_current=new Component[]{
