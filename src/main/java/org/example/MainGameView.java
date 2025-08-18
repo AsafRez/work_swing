@@ -114,22 +114,25 @@ public class MainGameView extends JPanel {
         try {
             FileReader read_score = new FileReader("Score_Board");
             BufferedReader br = new BufferedReader(read_score);
-            line=br.readLine();
+            while ((line = br.readLine()) != null) {
+            String[] parts = line.split("\\|"); // מפריד לפי הסימן
+                int current_score = Integer.parseInt(parts[1]);
+                if (current_score > highest_score) {
+                    highest_score = current_score;
+                }
+            highest_score = Integer.parseInt(parts[1].trim());
+        }
             br.close();
             read_score.close();
-            if(line.isEmpty()){
-                return 0;
-            }
-            String[] parts = line.split("\\|"); // מפריד לפי הסימן
-            highest_score = Integer.parseInt(parts[1].trim());
         } catch (IOException _) {
         }
         return highest_score;
+
     }
     private void end_game(String status){
         end=true;
         try {
-            FileWriter write_scores = new FileWriter("Score_Board");
+            FileWriter write_scores = new FileWriter("Score_Board",true);
             write_scores.write(USER_NAME + "|" + score + "\n");
             write_scores.close();
             if(status.equals("Lost")){
