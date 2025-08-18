@@ -3,6 +3,7 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.Objects;
 
 public class StartMenu extends JPanel {
@@ -31,7 +32,8 @@ public class StartMenu extends JPanel {
         this.image_Background.setBounds(0,0,width,height);
 
         //יצירת אובייקט הפעיל מוזיקה
-        SoundManager manger = new SoundManager("Main_page_music.wav");
+         SoundManager manger = new SoundManager("Main_page_music.wav");
+
 
         Font font = new Font ("Ariel" , Font.BOLD, 50);
         JLabel start_label=create_Label(0,20,Main.MENU_WIDTH,45,"Blocks Bomber",font);
@@ -66,6 +68,18 @@ public class StartMenu extends JPanel {
         JButton instructions = this.create_Button((int)((Main.MENU_WIDTH/2)-75) ,350,150,30,"Instructions");
         JButton exit_button=this.create_Button((int)((Main.MENU_WIDTH/2)-200),350,100,30,"Exit");
 
+        //השתקת סאונד
+        JButton sound_button = this.create_Button(5,5,80,30,"Music");
+        sound_button.setFont(new Font("Ariel",Font.BOLD,10));
+        sound_button.setBackground(Color.green);
+        sound_button.addActionListener((ActionEvent) ->{
+                 manger.switch_status();
+            if (manger.clip_is_runnig()) {
+                sound_button.setBackground(Color.green);
+            }else{
+                sound_button.setBackground((Color.red));
+            }
+        });
 
         exit_button.addActionListener((event)->{
             System.exit(0);
@@ -77,15 +91,16 @@ public class StartMenu extends JPanel {
             String bar_selected=(String) barsSelector.getSelectedItem();
             String block_selected=(String) blocksSelector.getSelectedItem();
             String ball_selected=(String) ballsSelector.getSelectedItem();
-            start_Game(user_name.getText(),level,bar_selected,block_selected,ball_selected);
+            start_Game(user_name.getText(),level,bar_selected,block_selected,ball_selected,manger);
         });
         this.add(image_Background);
         this.setVisible(true);
         this.repaint();
     }
     //פונקציית התחלת משחק
-    private void start_Game(String player_name,String level,String bar,String block,String ball) {
+    private void start_Game(String player_name,String level,String bar,String block,String ball,SoundManager player) {
         MainGameView.USER_NAME=player_name;
+        MainGameView.sound=new SoundManager(player);
         level=level.toUpperCase();
         LevelDifficulty chosen_diff=LevelDifficulty.valueOf(level);
         chosen_diff.set_difficulty();

@@ -2,6 +2,7 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -16,6 +17,7 @@ public class MainGameView extends JPanel {
     private final Blocks blocks_enemy;
     public static int WIDTH;
     public static int HEIGHT;
+    public static SoundManager sound;
     public boolean pause = false;
     public boolean end = false;
     private final JLabel scoreLabel;
@@ -56,6 +58,20 @@ public class MainGameView extends JPanel {
         this.scoreLabel.setBounds(width/2,10,200,40);
         this.add(this.scoreLabel);
         this.statusLabel = new JLabel();
+
+        //השתקת סאונד
+        JButton sound_button = new JButton("Music");
+        this.add(sound_button);
+        sound_button.setBounds(0,0,80,30);
+        sound_button.setFont(new Font("Ariel",Font.BOLD,10));
+        sound_button.addActionListener((ActionEvent) ->{
+            sound.switch_status();
+            if (sound.clip_is_runnig()) {
+                sound_button.setBackground(Color.green);
+            }else{
+                sound_button.setBackground((Color.red));
+            }
+    });
 
         //התחלת לולאת המשחק
         game_Loop();
@@ -136,8 +152,8 @@ public class MainGameView extends JPanel {
             write_scores.write(USER_NAME + "|" + score + "\n");
             write_scores.close();
             if(status.equals("Lost")){
-                edit_status_label("Lost");
-            }else {edit_status_label("Win");}
+                edit_status_label("You Lose");
+            }else {edit_status_label("You Win");}
         }catch (IOException e){
             System.out.println("בעיה בשמירת נתונים");
         }
@@ -150,7 +166,8 @@ public class MainGameView extends JPanel {
             statusLabel.setForeground(Color.YELLOW);
             Font font = new Font("Ariel", Font.BOLD, 150);
             statusLabel.setFont(font);
-            statusLabel.setBounds(WIDTH/2, HEIGHT/2, WIDTH/2, 200);
+            statusLabel.setBounds(0, HEIGHT/2, WIDTH, 200);
+            statusLabel.setHorizontalAlignment(SwingConstants.CENTER);
             revalidate();
             this.add(statusLabel);
             repaint();
@@ -227,4 +244,6 @@ private void move_Y(){
         Ball.X_MOVEMENT = (Ball.X_MOVEMENT*-1);
         new SoundManager("Ball_Hitting_Block.wav");
     }
+
+
 }

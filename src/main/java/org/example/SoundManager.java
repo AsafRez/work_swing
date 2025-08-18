@@ -19,10 +19,32 @@ public class SoundManager {
         }catch (Exception e) {
             System.out.println("Error: " + e);
         }    }
+    public boolean clip_is_runnig(){
+        return clip.isRunning();
+    }
     public void stop_music() {
-        if(clip.isRunning()) {
+        if (clip.isRunning()) {
             this.clip.stop();
         }
-
     }
+        public void start_music () {
+            if (!clip.isRunning()) {
+                this.clip.start();
+            }
+        }
+        public SoundManager(SoundManager sound){
+        this.clip=sound.getClip();
+        }
+
+    public Clip getClip() {
+        return clip;
+    }
+
+    public void switch_status() {
+            if (clip.isRunning()) {
+                this.clip.stop();
+            }else {
+                this.clip.start();
+            }
+        }
 }
