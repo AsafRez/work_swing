@@ -2,7 +2,6 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -60,21 +59,6 @@ public class MainGameView extends JPanel {
         this.add(this.scoreLabel);
         this.statusLabel = new JLabel();
 
-        //השתקת סאונד
-//        JButton sound_button = new JButton("Music");
-//        this.add(sound_button);
-//        sound_button.setBounds(0,0,80,30);
-//        sound_button.setFont(new Font("Ariel",Font.BOLD,10));
-//        sound_button.setBackground(Color.green);
-//        sound_button.addActionListener((ActionEvent) ->{
-//            sound.switch_status();
-//            if (sound.clip_is_runnig()) {
-//                sound_button.setBackground(Color.green);
-//            }else{
-//                sound_button.setBackground((Color.red));
-//            }
-//    });
-
         //התחלת לולאת המשחק
         game_Loop();
     }
@@ -99,33 +83,48 @@ public class MainGameView extends JPanel {
     }
     //בדיקת התנגשות עם הבלוקים
     private void check_Collision_with_blocks(Ball ball) {
-        Rectangle ballRect = new Rectangle(ball.getLocationX(), ball.getLocationY(), Ball.BALL_SIZE, Ball.BALL_SIZE);
-            for (int i = 0; i <this.blocks_enemy.getRows(); i++) {
-                    for (int j = 0; j <this.blocks_enemy.getColumns() ; j++) {
-                        Rectangle block_rec =this.blocks_enemy.getRect(i,j);
-                        Block current_block= blocks_enemy.getBlock(i,j);
-                     if(ballRect.intersects(block_rec) && !current_block.isNot_visible()){
-                         score+=10;
-                         //בדיקת מיקום התנגשות
-                         int overlapLeft   = ballRect.x + ballRect.width  - block_rec.x;
-                         int overlapRight  = block_rec.x + block_rec.width  - ballRect.x;
-                         int overlapTop    = ballRect.y + ballRect.height - block_rec.y;
-                         int overlapBottom = block_rec.y + block_rec.height - ballRect.y;
-                         int minOverlap = Math.min(Math.min(overlapLeft, overlapRight),
-                                 Math.min(overlapTop, overlapBottom));
-                         if (minOverlap == overlapLeft||minOverlap == overlapRight) {
-                             Ball.X_MOVEMENT*=-1;
+        Rectangle ballRect = new Rectangle(
+                ball.getLocationX(),
+                ball.getLocationY(),
+                Ball.BALL_SIZE,
+                Ball.BALL_SIZE
+        );
 
-                         }
-                         if (minOverlap == overlapTop||minOverlap == overlapBottom) {
-                             Ball.Y_MOVEMENT*=-1;
-                         }
-                    blocks_enemy.setBlockVisible(i,j);
+        for (int i = 0; i < this.blocks_enemy.getRows(); i++) {
+            for (int j = 0; j < this.blocks_enemy.getColumns(); j++) {
+                Rectangle block_rec = this.blocks_enemy.getRect(i, j);
+                Block current_block = blocks_enemy.getBlock(i, j);
+
+                if (ballRect.intersects(block_rec) && !current_block.isNot_visible()) {
+                    score += 10;
+
+                    // חישוב מרכזים
+                    int ballCenterX = ball.getLocationX() + Ball.BALL_SIZE / 2;
+                    int ballCenterY = ball.getLocationY() + Ball.BALL_SIZE / 2;
+
+                    int blockCenterX = block_rec.x + block_rec.width / 2;
+                    int blockCenterY = block_rec.y + block_rec.height / 2;
+
+                    int dx = ballCenterX - blockCenterX;
+                    int dy = ballCenterY - blockCenterY;
+
+                    // קובעים כיוון פגיעה
+                    if (Math.abs(dx) > Math.abs(dy)) {
+                        Ball.X_MOVEMENT *= -1; // פגיעה בצדדים
+                    } else {
+                        Ball.Y_MOVEMENT *= -1; // פגיעה מלמעלה/למטה
+                    }
+
+                    // הסתרת הבלוק שנפגע
+                    blocks_enemy.setBlockVisible(i, j);
                     repaint();
+
+                    return; // יציאה מיידית כדי שלא יימחקו כמה בלוקים בטעות
                 }
             }
         }
     }
+
     //השגת ציון הגבוה ביותר מקובץ חיצוני
     private int getHighestScore() {
         String line;
@@ -252,11 +251,9 @@ public void paint(Graphics g){
     }
 private void move_Y(){
     Ball.Y_MOVEMENT = (Ball.Y_MOVEMENT*-1);
-    new SoundManager("Ball_Hitting_Block.wav");
 }
     private void move_X(){
         Ball.X_MOVEMENT = (Ball.X_MOVEMENT*-1);
-        new SoundManager("Ball_Hitting_Block.wav");
     }
 
 

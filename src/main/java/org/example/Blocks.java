@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Blocks extends JPanel {
-    private Block[][] blocks;
+    private final Block[][]  blocks;
     public static final int BLOCK_WIDTH=Main.SCREEN_WIDTH/30;
     public static final int BLOCK_HEIGHT=Main.SCREEN_HEIGHT/50;
     public Blocks(int x,int y, int width, int height) {
@@ -18,9 +18,9 @@ public class Blocks extends JPanel {
                 blocks[i][j].setHeight(BLOCK_HEIGHT);
                 blocks[i][j].setWidth(BLOCK_WIDTH);
                 blocks[i][j].setX(block_x);
-                block_x += BLOCK_WIDTH + 5;
                 blocks[i][j].setY(block_y);
                 blocks[i][j].setRect(block_x,block_y,BLOCK_WIDTH,BLOCK_HEIGHT);
+                block_x += BLOCK_WIDTH + 5;
 
             }
             block_x = x;
@@ -44,10 +44,10 @@ public class Blocks extends JPanel {
         return blocks[i][j];
     }
     public void paint(Graphics g) {
-        for (int i = 0; i <blocks.length ; i++) {
-            for (int j = 0; j <blocks[0].length; j++) {
-                if(!this.blocks[i][j].isNot_visible()) {
-                    this.blocks[i][j].paint(g);
+        for (Block[] block : blocks) {
+            for (int j = 0; j < blocks[0].length; j++) {
+                if (!block[j].isNot_visible()) {
+                    block[j].paint(g);
                 }
             }
         }
